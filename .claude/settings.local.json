@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(ng version *)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\Zaydi\\\\Documents\\\\Github\\\\new-mehndi-app\\\\src\\\\app\" -Filter \"app.component.*\" -Recurse)"
+    ]
+  }
+}
