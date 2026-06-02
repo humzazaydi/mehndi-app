@@ -1,156 +1,422 @@
 @use '@angular/material' as mat;
 
-// ─── Brand Palette ────────────────────────────────────────────────────────────
-// Light theme
 html {
   height: 100%;
   @include mat.theme((
     color: (
-      primary: mat.$rose-palette,
-      tertiary: mat.$orange-palette,
+      primary: mat.$green-palette,
+      tertiary: mat.$yellow-palette,
     ),
-    typography: Roboto,
+    typography: Poppins,
     density: 0,
   ));
 }
 
-// Dark theme (toggled via body.dark-theme class)
 body.dark-theme {
   color-scheme: dark;
   @include mat.theme((
     color: (
       theme-type: dark,
-      primary: mat.$rose-palette,
-      tertiary: mat.$orange-palette,
+      primary: mat.$green-palette,
+      tertiary: mat.$yellow-palette,
     ),
   ));
 }
 
-// ─── Base ─────────────────────────────────────────────────────────────────────
-body {
-  color-scheme: light;
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-  margin: 0;
-  height: 100%;
-  transition: background-color 0.3s ease, color 0.3s ease;
+:root {
+  --mehndi-deep: #0f3d2e;
+  --mehndi-forest: #174d3a;
+  --mehndi-emerald: #1f7a56;
+  --mehndi-leaf: #3ba66f;
+  --mehndi-gold: #c99a2e;
+  --mehndi-gold-soft: #ead7a2;
+  --mehndi-ivory: #fffaf0;
+  --mehndi-cream: #f7efd9;
+  --mehndi-blush: #f2dfc7;
+  --mehndi-ink: #1d261f;
+  --mehndi-muted: #6f766a;
+  --mehndi-heading: #0f3d2e;
+  --mehndi-action-deep: #0f3d2e;
+  --mehndi-panel: rgba(255, 250, 240, 0.94);
+  --mehndi-panel-soft: rgba(255, 250, 240, 0.84);
+  --mehndi-nav: rgba(255, 250, 240, 0.92);
+  --mehndi-page-end: #fffaf2;
+  --mehndi-admin-overlay: linear-gradient(180deg, rgba(255, 250, 240, 0.88), rgba(247, 239, 217, 0.72));
+  --mehndi-border: rgba(15, 61, 46, 0.14);
+  --mehndi-shadow: 0 18px 45px rgba(15, 61, 46, 0.12);
+  --mehndi-shadow-soft: 0 10px 26px rgba(15, 61, 46, 0.09);
+  --sidebar-width: 260px;
+  --header-height: 64px;
+  --brand-primary: var(--mehndi-deep);
+  --brand-primary-light: var(--mehndi-emerald);
+  --brand-secondary: var(--mehndi-gold);
+  --brand-surface: var(--mehndi-ivory);
+  --brand-text: var(--mehndi-ink);
 }
 
 body.dark-theme {
-  color-scheme: dark;
+  --mehndi-deep: #ead7a2;
+  --mehndi-forest: #b9963c;
+  --mehndi-emerald: #3ba66f;
+  --mehndi-ivory: #101b15;
+  --mehndi-cream: #17261e;
+  --mehndi-blush: #203228;
+  --mehndi-ink: #f9f2df;
+  --mehndi-muted: #c8bfa9;
+  --mehndi-heading: #ead7a2;
+  --mehndi-action-deep: #0b281f;
+  --mehndi-panel: rgba(20, 34, 27, 0.96);
+  --mehndi-panel-soft: rgba(27, 45, 36, 0.82);
+  --mehndi-nav: rgba(16, 27, 21, 0.94);
+  --mehndi-page-end: #0b1510;
+  --mehndi-admin-overlay: linear-gradient(180deg, rgba(16, 27, 21, 0.92), rgba(23, 38, 30, 0.78));
+  --mehndi-border: rgba(234, 215, 162, 0.18);
+  --mehndi-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+  --mehndi-shadow-soft: 0 10px 26px rgba(0, 0, 0, 0.2);
 }
 
 * {
   box-sizing: border-box;
 }
 
-// ─── Tailwind layer overrides ─────────────────────────────────────────────────
-@layer base {
-  html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
 }
 
-// ─── Custom Properties ────────────────────────────────────────────────────────
-:root {
-  --brand-primary: #b5263a;
-  --brand-primary-light: #e8536b;
-  --brand-secondary: #d4a017;
-  --brand-surface: #fff8f7;
-  --brand-text: #1a0a0d;
-  --sidebar-width: 260px;
-  --header-height: 64px;
+body {
+  min-height: 100%;
+  margin: 0;
+  color: var(--mehndi-ink);
+  font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(201, 154, 46, 0.13), transparent 28rem),
+    radial-gradient(circle at 92% 8%, rgba(31, 122, 86, 0.12), transparent 24rem),
+    linear-gradient(180deg, var(--mehndi-ivory) 0%, var(--mehndi-cream) 52%, var(--mehndi-page-end) 100%);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-body.dark-theme {
-  --brand-surface: #1a0a0d;
-  --brand-text: #fff8f7;
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image:
+    radial-gradient(circle at center, rgba(15, 61, 46, 0.11) 0 1px, transparent 1px),
+    radial-gradient(circle at 20px 20px, rgba(201, 154, 46, 0.12) 0 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(180deg, #000, transparent 75%);
 }
 
-// ─── Typography helpers ───────────────────────────────────────────────────────
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+h1,
+h2,
+h3,
+.page-title,
+.section-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: 0;
+  color: var(--mehndi-heading);
+}
+
 .page-title {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--mat-sys-on-surface);
+  font-size: clamp(1.9rem, 6vw, 2.7rem);
+  font-weight: 800;
+  line-height: 1.08;
   margin: 0 0 1.5rem;
 }
 
 .section-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--mat-sys-on-surface);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 700;
   margin: 0 0 1rem;
 }
 
-// ─── Layout ──────────────────────────────────────────────────────────────────
 .page-container {
-  max-width: 1280px;
+  width: min(100% - 2rem, 1200px);
   margin: 0 auto;
-  padding: 1.5rem 1rem;
+  padding: 1.25rem 0;
 
   @media (min-width: 768px) {
-    padding: 2rem 1.5rem;
+    width: min(100% - 3rem, 1200px);
+    padding: 2rem 0;
   }
 }
 
 .admin-page {
-  padding: 1.5rem;
   min-height: calc(100vh - var(--header-height));
+  padding: 1rem;
+  background:
+    var(--mehndi-admin-overlay),
+    radial-gradient(circle at 100% 0%, rgba(201, 154, 46, 0.16), transparent 22rem);
+
+  @media (min-width: 768px) {
+    padding: 1.75rem;
+  }
 }
 
-// ─── Material overrides ───────────────────────────────────────────────────────
+.brand-gradient,
+.mehndi-gradient {
+  background: linear-gradient(135deg, var(--mehndi-action-deep) 0%, var(--mehndi-emerald) 58%, var(--mehndi-gold) 145%);
+}
+
+.mehndi-surface {
+  position: relative;
+  overflow: hidden;
+  background: var(--mehndi-panel-soft);
+  border: 1px solid var(--mehndi-border);
+  border-radius: 22px;
+  box-shadow: var(--mehndi-shadow-soft);
+}
+
+.mehndi-surface::before,
+.mehndi-motif::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  background:
+    radial-gradient(circle at 0 0, transparent 0 24px, rgba(201, 154, 46, 0.45) 25px 26px, transparent 27px),
+    radial-gradient(circle at 100% 100%, transparent 0 24px, rgba(15, 61, 46, 0.38) 25px 26px, transparent 27px);
+  background-size: 92px 92px;
+}
+
+.mandala-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--mehndi-gold);
+}
+
+.mandala-divider::before,
+.mandala-divider::after {
+  content: '';
+  width: min(34vw, 8rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+}
+
+.mandala-divider span {
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  box-shadow: 0 0 0 5px rgba(201, 154, 46, 0.12);
+}
+
+.premium-card,
 .mat-mdc-card {
-  border-radius: 12px !important;
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px !important;
+  border: 1px solid var(--mehndi-border) !important;
+  background: var(--mehndi-panel) !important;
+  box-shadow: var(--mehndi-shadow-soft) !important;
 }
 
+.premium-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(201, 154, 46, 0.45) !important;
+  box-shadow: var(--mehndi-shadow) !important;
+}
+
+.mat-mdc-card::after,
+.premium-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(201, 154, 46, 0.16), transparent 36%);
+}
+
+.mat-mdc-card > *,
+.premium-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.mat-mdc-raised-button,
+.mat-mdc-unelevated-button {
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 10px 24px rgba(15, 61, 46, 0.18) !important;
+}
+
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-unelevated-button.mat-primary,
 .mat-mdc-raised-button.brand-btn {
-  background-color: var(--brand-primary) !important;
-  color: #fff !important;
+  background: linear-gradient(135deg, var(--mehndi-action-deep), var(--mehndi-emerald)) !important;
+  color: var(--mehndi-ivory) !important;
 }
 
-// ─── Status badges ────────────────────────────────────────────────────────────
+.mat-mdc-outlined-button,
+.mat-mdc-button {
+  border-radius: 999px !important;
+  font-weight: 600 !important;
+}
+
+.mat-mdc-outlined-button {
+  border-color: rgba(201, 154, 46, 0.55) !important;
+}
+
+.mat-mdc-form-field {
+  --mdc-outlined-text-field-container-shape: 18px;
+  --mdc-outlined-text-field-outline-color: rgba(15, 61, 46, 0.18);
+  --mdc-outlined-text-field-focus-outline-color: var(--mehndi-emerald);
+  --mdc-outlined-text-field-label-text-color: var(--mehndi-muted);
+  --mat-form-field-container-text-font: 'Poppins';
+}
+
+.mat-mdc-menu-panel {
+  border-radius: 18px !important;
+  border: 1px solid var(--mehndi-border);
+  background: var(--mehndi-ivory) !important;
+  box-shadow: var(--mehndi-shadow) !important;
+}
+
+.mat-mdc-progress-bar {
+  --mdc-linear-progress-active-indicator-color: var(--mehndi-gold);
+  --mdc-linear-progress-track-color: rgba(15, 61, 46, 0.12);
+}
+
+.mat-calendar {
+  background: var(--mehndi-panel);
+}
+
+.mat-calendar-body-selected {
+  background-color: var(--mehndi-emerald) !important;
+  color: white !important;
+}
+
 .status-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.25rem 0.75rem;
+  padding: 0.28rem 0.72rem;
   border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.7rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 
-  &.pending    { background: #fef3c7; color: #92400e; }
-  &.confirmed  { background: #d1fae5; color: #065f46; }
-  &.in_progress { background: #dbeafe; color: #1e40af; }
-  &.completed  { background: #ede9fe; color: #4c1d95; }
-  &.cancelled  { background: #fee2e2; color: #991b1b; }
-  &.rejected   { background: #fce7f3; color: #9d174d; }
-  &.verified   { background: #d1fae5; color: #065f46; }
-  &.refunded   { background: #f3f4f6; color: #374151; }
+  &.pending { background: #f8e9bf; color: #76530a; }
+  &.confirmed { background: #d8f2e1; color: #0c5b39; }
+  &.in_progress { background: #dff1ed; color: #0f5c66; }
+  &.completed { background: #efe5bd; color: #6d4c08; }
+  &.cancelled,
+  &.rejected { background: #f8d8d4; color: #8d241f; }
+  &.verified { background: #d8f2e1; color: #0c5b39; }
+  &.refunded { background: #ece6d7; color: #534d3f; }
 }
 
-body.dark-theme .status-badge {
-  &.pending    { background: #451a03; color: #fde68a; }
-  &.confirmed  { background: #022c22; color: #6ee7b7; }
-  &.in_progress { background: #1e3a5f; color: #93c5fd; }
-  &.completed  { background: #2e1065; color: #c4b5fd; }
-  &.cancelled  { background: #450a0a; color: #fca5a5; }
-  &.rejected   { background: #500724; color: #f9a8d4; }
+.luxury-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(201, 154, 46, 0.18), transparent 26rem),
+    radial-gradient(circle at bottom right, rgba(15, 61, 46, 0.16), transparent 28rem),
+    linear-gradient(180deg, var(--mehndi-ivory), var(--mehndi-cream));
 }
 
-// ─── Utility ──────────────────────────────────────────────────────────────────
+.ornate-border {
+  border: 1px solid rgba(201, 154, 46, 0.36);
+  box-shadow: inset 0 0 0 1px var(--mehndi-panel-soft), var(--mehndi-shadow-soft);
+}
+
 .cursor-pointer { cursor: pointer; }
 .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-.brand-gradient {
-  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-light) 100%);
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(15, 61, 46, 0.32); border-radius: 999px; }
+
+.success-snack { --mdc-snackbar-container-color: #0f5a3f; --mdc-snackbar-supporting-text-color: #fff; }
+.error-snack { --mdc-snackbar-container-color: #8d241f; --mdc-snackbar-supporting-text-color: #fff; }
+
+/* Legacy utility compatibility: older screens still use rose/gray SaaS classes. */
+.bg-white,
+.bg-gray-50,
+.bg-rose-50,
+.from-rose-100,
+.from-rose-200,
+.to-rose-200,
+.to-rose-400 {
+  background: var(--mehndi-panel) !important;
 }
 
-// Scrollbar (WebKit)
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--mat-sys-outline); border-radius: 3px; }
+.border-gray-100,
+.border-gray-200,
+.border-rose-300,
+.border-rose-500 {
+  border-color: var(--mehndi-border) !important;
+}
 
-// Snackbar
-.success-snack { --mdc-snackbar-container-color: #065f46; --mdc-snackbar-supporting-text-color: #fff; }
-.error-snack   { --mdc-snackbar-container-color: #991b1b; --mdc-snackbar-supporting-text-color: #fff; }
+.text-gray-400,
+.text-gray-500,
+.text-gray-600,
+.text-gray-700 {
+  color: var(--mehndi-muted) !important;
+}
+
+.text-gray-800,
+.text-gray-900 {
+  color: var(--mehndi-ink) !important;
+}
+
+.text-rose-500,
+.text-rose-600,
+.text-rose-700,
+.text-amber-600,
+.text-amber-800,
+.text-amber-900 {
+  color: var(--mehndi-gold) !important;
+}
+
+.bg-rose-500,
+.bg-rose-600 {
+  background: var(--mehndi-action-deep) !important;
+}
+
+.hover\:bg-gray-50:hover,
+.hover\:bg-rose-50:hover {
+  background: var(--mehndi-panel-soft) !important;
+}
+
+.hover\:border-rose-300:hover {
+  border-color: var(--mehndi-gold) !important;
+}
+
+.shadow-sm,
+.shadow-md,
+.shadow-lg,
+.shadow-xl {
+  box-shadow: var(--mehndi-shadow-soft) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

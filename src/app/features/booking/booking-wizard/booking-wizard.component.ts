@@ -24,46 +24,44 @@ const STEP_LABELS = ['Artist & Package', 'Date & Time', 'Add-ons', 'Your Details
     Step4DetailsComponent, Step5ReviewComponent,
   ],
   template: `
-    <div class="min-h-screen bg-gray-50 py-8">
+    <div class="min-h-screen luxury-shell py-6 sm:py-10">
       <div class="max-w-3xl mx-auto px-4">
-        <!-- Header -->
         <div class="text-center mb-8">
-          <h1 class="text-3xl font-bold" style="font-family:'Playfair Display',serif;color:var(--brand-primary)">
-            Book Your Session
+          <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Bridal booking</p>
+          <h1 class="text-4xl sm:text-5xl font-bold">
+            Reserve Your Mehndi Session
           </h1>
-          <p class="text-gray-500 mt-2">Complete the steps below to confirm your appointment</p>
+          <p class="text-[var(--mehndi-muted)] mt-3">Choose your artist, ceremony date, bespoke details, and advance payment.</p>
         </div>
 
-        <!-- Progress -->
-        <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+        <div class="premium-card p-4 sm:p-6 mb-6">
           <div class="flex items-center justify-between mb-3">
             @for (label of stepLabels; track label; let i = $index) {
               <div class="flex flex-col items-center gap-1 flex-1" [class.opacity-40]="i > wizard.currentStep()">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors"
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors shadow-sm"
                      [class.brand-gradient]="i <= wizard.currentStep()"
                      [class.text-white]="i <= wizard.currentStep()"
-                     [class.bg-gray-200]="i > wizard.currentStep()"
-                     [class.text-gray-400]="i > wizard.currentStep()">
+                     [class.bg-[var(--mehndi-blush)]]="i > wizard.currentStep()"
+                     [class.text-[var(--mehndi-muted)]]="i > wizard.currentStep()">
                   @if (i < wizard.currentStep()) {
                     <mat-icon style="font-size:16px;width:16px;height:16px">check</mat-icon>
                   } @else {
                     {{ i + 1 }}
                   }
                 </div>
-                <span class="text-xs hidden sm:block text-center">{{ label }}</span>
+                <span class="text-xs hidden sm:block text-center text-[var(--mehndi-muted)]">{{ label }}</span>
               </div>
               @if (i < stepLabels.length - 1) {
                 <div class="h-0.5 flex-1 mx-2 transition-colors"
-                     [class.bg-rose-400]="i < wizard.currentStep()"
-                     [class.bg-gray-200]="i >= wizard.currentStep()"></div>
+                     [class.bg-[var(--mehndi-gold)]]="i < wizard.currentStep()"
+                     [class.bg-[rgba(15,61,46,0.12)]]="i >= wizard.currentStep()"></div>
               }
             }
           </div>
           <mat-progress-bar mode="determinate" [value]="progress()" color="primary" />
         </div>
 
-        <!-- Step Content -->
-        <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+        <div class="premium-card overflow-hidden">
           @switch (wizard.currentStep()) {
             @case (0) { <app-step1-artist /> }
             @case (1) { <app-step2-datetime /> }
@@ -74,7 +72,7 @@ const STEP_LABELS = ['Artist & Package', 'Date & Time', 'Add-ons', 'Your Details
 
           <!-- Navigation (steps 0-3) -->
           @if (wizard.currentStep() < 4) {
-            <div class="flex items-center justify-between p-6 border-t border-gray-100">
+            <div class="flex items-center justify-between p-4 sm:p-6 border-t border-[var(--mehndi-border)]">
               <button mat-button (click)="wizard.prevStep()" [disabled]="wizard.currentStep() === 0">
                 <mat-icon>arrow_back</mat-icon> Back
               </button>

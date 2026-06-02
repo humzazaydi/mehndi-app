@@ -14,8 +14,8 @@ import { environment } from '../../../../../environments/environment';
   standalone: true,
   imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, GoogleMapsModule],
   template: `
-    <div class="p-6">
-      <h2 class="text-xl font-semibold mb-6">Your Details</h2>
+    <div class="p-4 sm:p-6">
+      <h2 class="text-2xl font-semibold mb-6">Your Details</h2>
 
       <form [formGroup]="form" (ngChange)="onFormChange()">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -59,7 +59,7 @@ import { environment } from '../../../../../environments/environment';
         <!-- Google Maps -->
         @if (mapsApiKey) {
           <div class="mb-4">
-            <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wide mb-3">
+            <h3 class="text-sm font-semibold text-[var(--mehndi-muted)] uppercase tracking-[0.16em] mb-3">
               <mat-icon class="align-middle mr-1" style="font-size:16px">pin_drop</mat-icon>
               Pin Your Location (Optional)
             </h3>
@@ -69,14 +69,14 @@ import { environment } from '../../../../../environments/environment';
               [center]="mapCenter"
               [zoom]="12"
               (mapClick)="onMapClick($event)"
-              class="rounded-xl overflow-hidden border border-gray-200"
+              class="rounded-2xl overflow-hidden border border-[var(--mehndi-border)]"
             >
               @if (marker()) {
                 <map-marker [position]="marker()!" />
               }
             </google-map>
             @if (marker()) {
-              <p class="text-xs text-gray-500 mt-2">
+              <p class="text-xs text-[var(--mehndi-muted)] mt-2">
                 <mat-icon style="font-size:14px">check_circle</mat-icon>
                 Location pinned
               </p>

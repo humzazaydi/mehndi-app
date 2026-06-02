@@ -6,7 +6,6 @@ import { MatCardModule } from '@angular/material/card';
 import { ArtistService } from '../../../core/services/artist.service';
 import { PackageService } from '../../../core/services/package.service';
 import { SettingsService } from '../../../core/services/settings.service';
-import { Artist, Package } from '../../../core/models';
 import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
 
 @Component({
@@ -14,136 +13,152 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
   standalone: true,
   imports: [RouterLink, MatButtonModule, MatIconModule, MatCardModule, CurrencyPkPipe],
   template: `
-    <!-- Hero -->
-    <section class="relative overflow-hidden"
-             style="background: linear-gradient(135deg, #4a0010 0%, #b5263a 50%, #e8536b 100%); min-height: 80vh; display: flex; align-items: center;">
-      <div class="absolute inset-0 opacity-10"
-           style="background-image: url('assets/henna-pattern.svg'); background-size: 400px;"></div>
-      <div class="page-container relative z-10 text-white py-20">
-        <div class="max-w-2xl">
-          <p class="text-rose-200 text-sm font-medium uppercase tracking-widest mb-4">Professional Bridal Henna</p>
-          <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight"
-              style="font-family:'Playfair Display',serif">
-            Art That Tells<br>Your Story
+    <section class="relative overflow-hidden min-h-[calc(100vh-64px)] flex items-center pb-10"
+             style="background:linear-gradient(145deg,rgba(15,61,46,0.96),rgba(31,122,86,0.9) 52%,rgba(201,154,46,0.78))">
+      <div class="absolute inset-0 mehndi-motif opacity-35"></div>
+      <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[var(--mehndi-ivory)] to-transparent"></div>
+
+      <div class="page-container relative z-10 grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center text-white">
+        <div class="py-12 sm:py-18">
+          <p class="text-[var(--mehndi-gold-soft)] text-xs font-semibold uppercase tracking-[0.28em] mb-4">Traditional bridal henna</p>
+          <h1 class="text-[clamp(3rem,14vw,6.4rem)] font-extrabold leading-[0.92] mb-6 text-white">
+            Mehndi Studio
           </h1>
-          <p class="text-rose-100 text-lg mb-10 leading-relaxed max-w-xl">
-            Exquisite henna designs crafted for your most precious moments. Book your bridal session with our master artists.
+          <p class="text-lg sm:text-xl text-[rgba(255,250,240,0.88)] leading-relaxed max-w-xl mb-8">
+            Artist-led bridal mehndi bookings with authentic South Asian detailing, natural henna, and a polished experience from consultation to celebration.
           </p>
-          <div class="flex flex-wrap gap-4">
-            <a mat-raised-button routerLink="/booking"
-               class="!bg-white !text-rose-700 !font-semibold !px-8 !py-3 !text-base !rounded-full">
-              Book Now
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a mat-raised-button routerLink="/booking" class="!bg-[var(--mehndi-ivory)] !text-[var(--mehndi-deep)] !px-8 !py-4 !text-base">
+              Reserve Bridal Slot
             </a>
-            <a mat-stroked-button routerLink="/artists"
-               class="!border-white !text-white !px-8 !py-3 !text-base !rounded-full">
+            <a mat-stroked-button routerLink="/artists" class="!border-[var(--mehndi-gold-soft)] !text-white !px-8 !py-4 !text-base">
               Meet Artists
             </a>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="mehndi-surface ornate-border p-5 sm:p-7 bg-[var(--mehndi-panel)]">
+            <div class="aspect-[4/5] rounded-[28px] overflow-hidden brand-gradient relative">
+              <img
+                src="/images/bridal-henna-artistry.png"
+                alt="Intricate bridal mehndi design with mandala and floral henna details"
+                class="absolute inset-0 h-full w-full object-cover"
+                loading="eager"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-[rgba(8,24,18,0.88)] via-[rgba(8,24,18,0.28)] to-[rgba(8,24,18,0.06)]"></div>
+              <div class="absolute inset-0 mehndi-motif opacity-10"></div>
+              <div class="absolute inset-6 border border-[rgba(234,215,162,0.55)] rounded-[24px]"></div>
+              <div class="absolute inset-0 flex flex-col justify-end p-8 text-white">
+                <p class="text-xs uppercase tracking-[0.28em] text-[var(--mehndi-gold-soft)] mb-3">Bridal artistry</p>
+                <h2 class="text-4xl font-bold text-white mb-3">Intricate, personal, timeless.</h2>
+                <p class="text-sm opacity-85">Mandala centers, floral vines, paisley cuffs, and storytelling motifs crafted for your event.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Features -->
-    <section class="py-16 bg-rose-50">
+    <section class="py-14 sm:py-18">
       <div class="page-container">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div class="mandala-divider mb-10"><span></span></div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-center">
           @for (f of features; track f.icon) {
-            <div class="p-6">
-              <div class="w-14 h-14 brand-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+            <div class="premium-card p-6 sm:p-7">
+              <div class="w-14 h-14 brand-gradient rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <mat-icon class="text-white" style="font-size:28px;width:28px;height:28px;">{{ f.icon }}</mat-icon>
               </div>
-              <h3 class="font-semibold text-gray-900 mb-2">{{ f.title }}</h3>
-              <p class="text-gray-600 text-sm">{{ f.text }}</p>
+              <h3 class="font-semibold text-xl mb-2">{{ f.title }}</h3>
+              <p class="text-[var(--mehndi-muted)] text-sm leading-relaxed">{{ f.text }}</p>
             </div>
           }
         </div>
       </div>
     </section>
 
-    <!-- Featured Artists -->
     @if (artists().length > 0) {
-      <section class="py-16">
+      <section class="py-14">
         <div class="page-container">
           <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold mb-3" style="font-family:'Playfair Display',serif">Our Master Artists</h2>
-            <p class="text-gray-500">Each artist brings a unique style and years of expertise</p>
+            <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Handpicked talent</p>
+            <h2 class="text-4xl font-bold mb-3">Our Master Artists</h2>
+            <p class="text-[var(--mehndi-muted)]">Each artist brings a unique style, steady hand, and bridal-season expertise.</p>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             @for (artist of artists().slice(0, 3); track artist.id) {
-              <mat-card class="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
-                        [routerLink]="['/artists', artist.id]">
-                <div class="h-56 bg-gradient-to-br from-rose-100 to-rose-200 relative overflow-hidden">
+              <mat-card class="premium-card cursor-pointer group" [routerLink]="['/artists', artist.id]">
+                <div class="h-60 bg-[var(--mehndi-blush)] relative overflow-hidden">
                   @if (artist.photo_url) {
-                    <img [src]="artist.photo_url" [alt]="artist.name" class="w-full h-full object-cover">
+                    <img [src]="artist.photo_url" [alt]="artist.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                   } @else {
+                    <div class="absolute inset-0 mehndi-motif opacity-30"></div>
                     <div class="absolute inset-0 flex items-center justify-center">
-                      <mat-icon style="font-size:80px;width:80px;height:80px;color:#b5263a;opacity:0.3">brush</mat-icon>
+                      <mat-icon style="font-size:80px;width:80px;height:80px;color:var(--mehndi-deep);opacity:0.35">brush</mat-icon>
                     </div>
                   }
                 </div>
-                <mat-card-content class="p-4">
-                  <h3 class="font-semibold text-lg">{{ artist.name }}</h3>
-                  <p class="text-gray-500 text-sm mt-1 line-clamp-2">{{ artist.bio ?? 'Professional henna artist' }}</p>
+                <mat-card-content class="p-5">
+                  <h3 class="font-semibold text-xl">{{ artist.name }}</h3>
+                  <p class="text-[var(--mehndi-muted)] text-sm mt-2 line-clamp-2">{{ artist.bio ?? 'Professional henna artist' }}</p>
                 </mat-card-content>
               </mat-card>
             }
           </div>
           <div class="text-center mt-8">
-            <a mat-stroked-button color="primary" routerLink="/artists">View All Artists</a>
+            <a mat-stroked-button routerLink="/artists">View All Artists</a>
           </div>
         </div>
       </section>
     }
 
-    <!-- Packages Preview -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-14 bg-[rgba(15,61,46,0.06)]">
       <div class="page-container">
         <div class="text-center mb-10">
-          <h2 class="text-3xl font-bold mb-3" style="font-family:'Playfair Display',serif">Packages & Pricing</h2>
-          <p class="text-gray-500">Transparent pricing for every occasion</p>
+          <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Transparent packages</p>
+          <h2 class="text-4xl font-bold mb-3">Bridal Mehndi Pricing</h2>
+          <p class="text-[var(--mehndi-muted)]">Clear options for intimate ceremonies, full bridal sessions, and festive events.</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          @for (pkg of packages().slice(0, 5); track pkg.id) {
-            <div class="bg-white rounded-xl p-5 border border-gray-100 hover:border-rose-300 hover:shadow-md transition-all text-center">
-              <div class="text-rose-600 font-bold text-xl mb-1">{{ pkg.base_price | pkr }}</div>
-              <h3 class="font-semibold text-gray-900 text-sm">{{ pkg.name }}</h3>
+          @for (pkg of packages().slice(0, 5); track pkg.id; let i = $index) {
+            <div class="premium-card p-5 text-center">
+              <div class="text-[var(--mehndi-gold)] font-bold text-2xl mb-2">{{ pkg.base_price | pkr }}</div>
+              <h3 class="font-semibold text-[var(--mehndi-deep)]">{{ pkg.name }}</h3>
               @if (pkg.description) {
-                <p class="text-gray-500 text-xs mt-2 leading-relaxed">{{ pkg.description }}</p>
+                <p class="text-[var(--mehndi-muted)] text-xs mt-2 leading-relaxed">{{ pkg.description }}</p>
               }
             </div>
           }
         </div>
-        <div class="text-center mt-8 space-x-4">
-          <a mat-stroked-button color="primary" routerLink="/packages">Full Pricing Details</a>
+        <div class="text-center mt-8 flex flex-col sm:flex-row justify-center gap-3">
+          <a mat-stroked-button routerLink="/packages">Full Pricing Details</a>
           <a mat-raised-button color="primary" routerLink="/booking">Book Now</a>
         </div>
       </div>
     </section>
 
-    <!-- Notice -->
     @if (notice()) {
-      <section class="py-8 bg-amber-50 border-y border-amber-200">
+      <section class="py-8">
         <div class="page-container">
-          <div class="flex items-start gap-3">
-            <mat-icon class="text-amber-600 mt-0.5">info</mat-icon>
+          <div class="premium-card p-5 flex items-start gap-3">
+            <mat-icon class="text-[var(--mehndi-gold)] mt-0.5">info</mat-icon>
             <div>
-              <h4 class="font-semibold text-amber-900">{{ notice()!.title }}</h4>
-              <p class="text-amber-800 text-sm mt-1 whitespace-pre-line">{{ notice()!.content }}</p>
+              <h4 class="font-semibold text-[var(--mehndi-deep)]">{{ notice()!.title }}</h4>
+              <p class="text-[var(--mehndi-muted)] text-sm mt-1 whitespace-pre-line">{{ notice()!.content }}</p>
             </div>
           </div>
         </div>
       </section>
     }
 
-    <!-- CTA -->
-    <section class="py-20 brand-gradient text-white text-center">
-      <div class="page-container">
-        <h2 class="text-3xl font-bold mb-4" style="font-family:'Playfair Display',serif">Ready to Book?</h2>
-        <p class="text-rose-100 mb-8 max-w-lg mx-auto">
-          Reserve your slot today. Limited appointments available each month.
+    <section class="relative overflow-hidden py-16 text-white text-center brand-gradient">
+      <div class="absolute inset-0 mehndi-motif opacity-25"></div>
+      <div class="page-container relative">
+        <h2 class="text-4xl font-bold mb-4 text-white">Ready for your mehndi ceremony?</h2>
+        <p class="text-[rgba(255,250,240,0.86)] mb-8 max-w-lg mx-auto">
+          Reserve your slot early and let the studio prepare a bridal design plan around your celebration.
         </p>
-        <a mat-raised-button routerLink="/booking"
-           class="!bg-white !text-rose-700 !font-semibold !px-10 !py-4 !text-lg !rounded-full">
+        <a mat-raised-button routerLink="/booking" class="!bg-[var(--mehndi-ivory)] !text-[var(--mehndi-deep)] !px-10 !py-4 !text-lg">
           Schedule My Appointment
         </a>
       </div>
@@ -160,9 +175,9 @@ export class HomeComponent implements OnInit {
   notice = signal<{ title: string; content: string } | null>(null);
 
   features = [
-    { icon: 'star', title: 'Expert Artists', text: 'Trained professionals with years of bridal henna experience' },
-    { icon: 'verified', title: 'Premium Quality', text: 'High-grade natural cones and exquisite designs' },
-    { icon: 'schedule', title: 'Easy Booking', text: 'Book online in minutes, pay securely in advance' },
+    { icon: 'auto_awesome', title: 'Bridal Detailing', text: 'Mandala, floral, paisley, and personalized motifs for ceremony-ready hands.' },
+    { icon: 'verified', title: 'Natural Quality', text: 'Premium henna cones, careful prep, and aftercare guidance for a deep stain.' },
+    { icon: 'event_available', title: 'Calm Booking', text: 'Choose artist, package, time, add-ons, and payment in a clean mobile flow.' },
   ];
 
   async ngOnInit(): Promise<void> {

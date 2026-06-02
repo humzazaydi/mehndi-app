@@ -12,19 +12,19 @@ import { CurrencyPkPipe } from '../../../../shared/pipes/currency-pk.pipe';
   standalone: true,
   imports: [MatCheckboxModule, MatIconModule, MatDividerModule, CurrencyPkPipe],
   template: `
-    <div class="p-6">
-      <h2 class="text-xl font-semibold mb-2">Add Bespoke Elements</h2>
-      <p class="text-gray-500 text-sm mb-6">Customize your design with special add-ons (optional)</p>
+    <div class="p-4 sm:p-6">
+      <h2 class="text-2xl font-semibold mb-2">Add Bespoke Elements</h2>
+      <p class="text-[var(--mehndi-muted)] text-sm mb-6">Customize your design with special add-ons (optional)</p>
 
       @if (packageService.addons().length === 0) {
-        <p class="text-gray-400 text-center py-8">No add-ons available currently.</p>
+        <p class="text-[var(--mehndi-muted)] text-center py-8">No add-ons available currently.</p>
       } @else {
         <div class="space-y-3 mb-8">
           @for (addon of packageService.addons(); track addon.id) {
-            <div class="border-2 rounded-xl p-4 transition-all cursor-pointer"
-                 [class.border-rose-400]="isSelected(addon.id)"
-                 [class.bg-rose-50]="isSelected(addon.id)"
-                 [class.border-gray-200]="!isSelected(addon.id)"
+            <div class="border-2 rounded-2xl p-4 transition-all cursor-pointer bg-[var(--mehndi-panel-soft)]"
+                 [class.border-[var(--mehndi-gold)]]="isSelected(addon.id)"
+                 [class.bg-[rgba(201,154,46,0.12)]]="isSelected(addon.id)"
+                 [class.border-[var(--mehndi-border)]]="!isSelected(addon.id)"
                  (click)="toggleAddon(addon.id)">
               <div class="flex items-center gap-4">
                 <mat-checkbox
@@ -36,10 +36,10 @@ import { CurrencyPkPipe } from '../../../../shared/pipes/currency-pk.pipe';
                 <div class="flex-1">
                   <p class="font-medium">{{ addon.name }}</p>
                   @if (addon.description) {
-                    <p class="text-gray-500 text-sm mt-0.5">{{ addon.description }}</p>
+                    <p class="text-[var(--mehndi-muted)] text-sm mt-0.5">{{ addon.description }}</p>
                   }
                 </div>
-                <p class="text-rose-700 font-semibold">+ {{ addon.price | pkr }}</p>
+                <p class="text-[var(--mehndi-gold)] font-semibold">+ {{ addon.price | pkr }}</p>
               </div>
             </div>
           }
@@ -50,20 +50,20 @@ import { CurrencyPkPipe } from '../../../../shared/pipes/currency-pk.pipe';
       <mat-divider />
       <div class="pt-6 space-y-2">
         <div class="flex justify-between text-sm">
-          <span class="text-gray-500">Package Price</span>
+          <span class="text-[var(--mehndi-muted)]">Package Price</span>
           <span class="font-medium">{{ packageAmount() | pkr }}</span>
         </div>
         @if (addonsTotal() > 0) {
           <div class="flex justify-between text-sm">
-            <span class="text-gray-500">Add-ons</span>
+            <span class="text-[var(--mehndi-muted)]">Add-ons</span>
             <span class="font-medium">+ {{ addonsTotal() | pkr }}</span>
           </div>
         }
-        <div class="flex justify-between font-bold text-lg pt-2 border-t border-gray-100">
+        <div class="flex justify-between font-bold text-lg pt-2 border-t border-[var(--mehndi-border)]">
           <span>Total</span>
-          <span class="text-rose-700">{{ totalAmount() | pkr }}</span>
+          <span class="text-[var(--mehndi-gold)]">{{ totalAmount() | pkr }}</span>
         </div>
-        <div class="flex justify-between text-sm text-gray-500">
+        <div class="flex justify-between text-sm text-[var(--mehndi-muted)]">
           <span>Advance Required (50%)</span>
           <span>{{ advanceAmount() | pkr }}</span>
         </div>

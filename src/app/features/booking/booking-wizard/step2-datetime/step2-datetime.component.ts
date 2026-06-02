@@ -17,34 +17,34 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
     MatFormFieldModule, MatInputModule, MatIconModule, LoadingSpinnerComponent,
   ],
   template: `
-    <div class="p-6">
-      <h2 class="text-xl font-semibold mb-6">Select Date & Time</h2>
+    <div class="p-4 sm:p-6">
+      <h2 class="text-2xl font-semibold mb-6">Select Date & Time</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Calendar -->
         <div>
-          <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wide mb-3">Choose Date</h3>
+          <h3 class="text-sm font-semibold text-[var(--mehndi-muted)] uppercase tracking-[0.16em] mb-3">Choose Date</h3>
           <mat-calendar
             [minDate]="minDate"
             [(selected)]="selectedDate"
             (selectedChange)="onDateChange($event)"
-            class="border border-gray-200 rounded-xl overflow-hidden"
+            class="border border-[var(--mehndi-border)] rounded-2xl overflow-hidden"
           />
         </div>
 
         <!-- Time Slots -->
         <div>
-          <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wide mb-3">Choose Time Slot</h3>
+          <h3 class="text-sm font-semibold text-[var(--mehndi-muted)] uppercase tracking-[0.16em] mb-3">Choose Time Slot</h3>
 
           @if (!wizard.data().date) {
-            <div class="text-center py-8 text-gray-400">
+            <div class="text-center py-8 text-[var(--mehndi-muted)]">
               <mat-icon style="font-size:48px;width:48px;height:48px;opacity:0.3">event</mat-icon>
               <p class="mt-2 text-sm">Select a date first</p>
             </div>
           } @else if (loadingSlots()) {
             <app-loading-spinner message="Checking availability..." />
           } @else if (availableSlots().length === 0) {
-            <div class="text-center py-8 text-gray-400">
+            <div class="text-center py-8 text-[var(--mehndi-muted)]">
               <mat-icon style="font-size:48px;width:48px;height:48px;opacity:0.3">event_busy</mat-icon>
               <p class="mt-2 text-sm">No slots available on this date</p>
             </div>
@@ -52,12 +52,12 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
             <div class="grid grid-cols-2 gap-2">
               @for (slot of availableSlots(); track slot) {
                 <button
-                  class="py-3 px-4 rounded-xl border-2 text-sm font-medium transition-all"
-                  [class.border-rose-500]="wizard.data().timeSlot === slot"
-                  [class.bg-rose-500]="wizard.data().timeSlot === slot"
+                  class="py-3 px-4 rounded-2xl border-2 text-sm font-semibold transition-all"
+                  [class.border-[var(--mehndi-gold)]]="wizard.data().timeSlot === slot"
+                  [class.bg-[var(--mehndi-deep)]]="wizard.data().timeSlot === slot"
                   [class.text-white]="wizard.data().timeSlot === slot"
-                  [class.border-gray-200]="wizard.data().timeSlot !== slot"
-                  [class.hover:border-rose-300]="wizard.data().timeSlot !== slot"
+                  [class.border-[var(--mehndi-border)]]="wizard.data().timeSlot !== slot"
+                  [class.hover:border-[var(--mehndi-gold)]]="wizard.data().timeSlot !== slot"
                   (click)="selectSlot(slot)"
                 >
                   {{ slot }}

@@ -11,7 +11,6 @@ import { SettingsService } from '../../../../core/services/settings.service';
 import { ArtistService } from '../../../../core/services/artist.service';
 import { PackageService } from '../../../../core/services/package.service';
 import { CurrencyPkPipe } from '../../../../shared/pipes/currency-pk.pipe';
-import { FileUploadComponent } from '../../../../shared/components/file-upload/file-upload.component';
 import { TermsDialogComponent } from './terms-dialog.component';
 
 @Component({
@@ -19,88 +18,85 @@ import { TermsDialogComponent } from './terms-dialog.component';
   standalone: true,
   imports: [
     DatePipe, MatButtonModule, MatIconModule, MatDialogModule, MatCheckboxModule,
-    MatDividerModule, MatProgressSpinnerModule, CurrencyPkPipe, FileUploadComponent,
+    MatDividerModule, MatProgressSpinnerModule, CurrencyPkPipe,
   ],
   template: `
-    <div class="p-6">
-      <h2 class="text-xl font-semibold mb-6">Review & Confirm</h2>
+    <div class="p-4 sm:p-6">
+      <h2 class="text-2xl font-semibold mb-6">Review & Confirm</h2>
 
-      <!-- Summary -->
-      <div class="bg-gray-50 rounded-xl p-5 mb-6 space-y-3">
+      <div class="bg-[rgba(15,61,46,0.06)] rounded-2xl p-5 mb-6 space-y-3 border border-[var(--mehndi-border)]">
         <div class="flex justify-between text-sm">
-          <span class="text-gray-500">Artist</span>
+          <span class="text-[var(--mehndi-muted)]">Artist</span>
           <span class="font-medium">{{ artistName() }}</span>
         </div>
         <div class="flex justify-between text-sm">
-          <span class="text-gray-500">Package</span>
+          <span class="text-[var(--mehndi-muted)]">Package</span>
           <span class="font-medium">{{ packageName() }}</span>
         </div>
         <div class="flex justify-between text-sm">
-          <span class="text-gray-500">Date</span>
+          <span class="text-[var(--mehndi-muted)]">Date</span>
           <span class="font-medium">{{ wizard.data().date | date:'fullDate' }}</span>
         </div>
         <div class="flex justify-between text-sm">
-          <span class="text-gray-500">Time</span>
+          <span class="text-[var(--mehndi-muted)]">Time</span>
           <span class="font-medium">{{ wizard.data().timeSlot }}</span>
         </div>
         @if (wizard.data().addonIds.length > 0) {
           <div class="flex justify-between text-sm">
-            <span class="text-gray-500">Add-ons</span>
+            <span class="text-[var(--mehndi-muted)]">Add-ons</span>
             <span class="font-medium">{{ wizard.data().addonIds.length }} selected</span>
           </div>
         }
         <mat-divider />
         <div class="flex justify-between font-bold">
           <span>Total Amount</span>
-          <span class="text-rose-700">{{ wizard.data().totalAmount | pkr }}</span>
+          <span class="text-[var(--mehndi-gold)]">{{ wizard.data().totalAmount | pkr }}</span>
         </div>
-        <div class="flex justify-between text-sm text-gray-600">
+        <div class="flex justify-between text-sm text-[var(--mehndi-muted)]">
           <span>Advance Required</span>
           <span class="font-semibold">{{ wizard.data().advanceAmount | pkr }}</span>
         </div>
       </div>
 
-      <!-- Banking Info -->
       @if (settings.banking()) {
-        <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-6">
-          <h3 class="font-semibold text-amber-900 mb-3 flex items-center gap-2">
-            <mat-icon class="text-amber-600">account_balance</mat-icon>
+        <div class="premium-card p-5 mb-6">
+          <h3 class="font-semibold text-[var(--mehndi-deep)] mb-3 flex items-center gap-2">
+            <mat-icon class="text-[var(--mehndi-gold)]">account_balance</mat-icon>
             Payment Details
           </h3>
-          <p class="text-amber-800 text-sm mb-4">
+          <p class="text-[var(--mehndi-muted)] text-sm mb-4">
             Please transfer the advance amount of <strong>{{ wizard.data().advanceAmount | pkr }}</strong> to any of the following accounts:
           </p>
           <div class="space-y-3 text-sm">
-            <div class="bg-white rounded-lg p-3">
-              <p class="font-semibold text-gray-800">Meezan Bank</p>
-              <p class="text-gray-600">{{ settings.banking()!.meezan.accountTitle }}</p>
-              <p class="text-gray-500 font-mono">{{ settings.banking()!.meezan.accountNumber }}</p>
+            <div class="bg-[var(--mehndi-panel-soft)] rounded-2xl p-3 border border-[var(--mehndi-border)]">
+              <p class="font-semibold text-[var(--mehndi-deep)]">Meezan Bank</p>
+              <p class="text-[var(--mehndi-muted)]">{{ settings.banking()!.meezan.accountTitle }}</p>
+              <p class="text-[var(--mehndi-muted)] font-mono">{{ settings.banking()!.meezan.accountNumber }}</p>
             </div>
-            <div class="bg-white rounded-lg p-3">
-              <p class="font-semibold text-gray-800">HBL</p>
-              <p class="text-gray-600">{{ settings.banking()!.hbl.accountTitle }}</p>
-              <p class="text-gray-500 font-mono">{{ settings.banking()!.hbl.accountNumber }}</p>
-              <p class="text-gray-400 text-xs">IBAN: {{ settings.banking()!.hbl.iban }}</p>
+            <div class="bg-[var(--mehndi-panel-soft)] rounded-2xl p-3 border border-[var(--mehndi-border)]">
+              <p class="font-semibold text-[var(--mehndi-deep)]">HBL</p>
+              <p class="text-[var(--mehndi-muted)]">{{ settings.banking()!.hbl.accountTitle }}</p>
+              <p class="text-[var(--mehndi-muted)] font-mono">{{ settings.banking()!.hbl.accountNumber }}</p>
+              <p class="text-[var(--mehndi-muted)] text-xs">IBAN: {{ settings.banking()!.hbl.iban }}</p>
             </div>
-            <div class="bg-white rounded-lg p-3">
-              <p class="font-semibold text-gray-800">EasyPaisa / JazzCash</p>
-              <p class="text-gray-500 font-mono">{{ settings.banking()!.easypaisa }}</p>
+            <div class="bg-[var(--mehndi-panel-soft)] rounded-2xl p-3 border border-[var(--mehndi-border)]">
+              <p class="font-semibold text-[var(--mehndi-deep)]">EasyPaisa / JazzCash</p>
+              <p class="text-[var(--mehndi-muted)] font-mono">{{ settings.banking()!.easypaisa }}</p>
             </div>
           </div>
         </div>
       }
 
-      <!-- Terms -->
       <div class="mb-6">
-        <div class="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
+        <div class="flex items-start gap-3 p-4 bg-[rgba(15,61,46,0.06)] rounded-2xl border border-[var(--mehndi-border)]">
           <mat-checkbox
             color="primary"
             [checked]="wizard.data().termsAccepted"
             (change)="onTermsChange($event.checked)"
           />
-          <p class="text-sm text-gray-700">
+          <p class="text-sm text-[var(--mehndi-muted)]">
             I have read and agree to the
-            <button class="text-rose-600 underline font-medium" (click)="openTerms()">
+            <button class="text-[var(--mehndi-emerald)] underline font-medium" (click)="openTerms()">
               Terms & Conditions
             </button>
             and the Important Notice.
@@ -108,8 +104,7 @@ import { TermsDialogComponent } from './terms-dialog.component';
         </div>
       </div>
 
-      <!-- Submit -->
-      <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+      <div class="flex items-center justify-between pt-4 border-t border-[var(--mehndi-border)]">
         <button mat-button (click)="wizard.prevStep()">
           <mat-icon>arrow_back</mat-icon> Back
         </button>

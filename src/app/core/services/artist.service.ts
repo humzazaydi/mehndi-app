@@ -59,6 +59,32 @@ export class ArtistService {
     await this.loadArtists(false);
   }
 
+  async assignPackage(artistId: string, packageId: string, customPrice?: number | null): Promise<void> {
+    const { error } = await this.supabase.client
+      .from('artist_packages')
+      .insert({ artist_id: artistId, package_id: packageId, custom_price: customPrice ?? null, is_available: true });
+    if (error) throw error;
+    await this.loadArtists(false);
+  }
+
+  async updateArtistPackage(id: string, updates: { custom_price?: number | null; is_available?: boolean }): Promise<void> {
+    const { error } = await this.supabase.client
+      .from('artist_packages')
+      .update(updates)
+      .eq('id', id);
+    if (error) throw error;
+    await this.loadArtists(false);
+  }
+
+  async removeArtistPackage(id: string): Promise<void> {
+    const { error } = await this.supabase.client
+      .from('artist_packages')
+      .delete()
+      .eq('id', id);
+    if (error) throw error;
+    await this.loadArtists(false);
+  }
+
   async uploadPhoto(artistId: string, file: File): Promise<string> {
     const ext = file.name.split('.').pop();
     const path = `${artistId}/profile.${ext}`;

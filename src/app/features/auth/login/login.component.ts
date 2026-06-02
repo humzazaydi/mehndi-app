@@ -17,22 +17,21 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
     MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule,
   ],
   template: `
-    <div class="min-h-screen flex items-center justify-center p-4"
-         style="background: linear-gradient(135deg, #fff8f7 0%, #fce4ec 100%)">
+    <div class="min-h-screen luxury-shell flex items-center justify-center p-4 relative overflow-hidden">
+      <div class="absolute inset-0 mehndi-motif opacity-20"></div>
       <div class="w-full max-w-md">
-        <!-- Logo -->
-        <div class="text-center mb-8">
-          <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <span class="text-white font-bold text-3xl">M</span>
+        <div class="text-center mb-8 relative">
+          <div class="w-16 h-16 brand-gradient rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg ornate-border">
+            <span class="text-white font-bold text-3xl" style="font-family:'Playfair Display',serif">M</span>
           </div>
-          <h1 class="text-2xl font-bold" style="font-family:'Playfair Display',serif;color:var(--brand-primary)">
+          <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Client access</p>
+          <h1 class="text-3xl font-bold">
             Welcome Back
           </h1>
-          <p class="text-gray-500 text-sm mt-1">Sign in to your Mehndi Studio account</p>
+          <p class="text-[var(--mehndi-muted)] text-sm mt-1">Sign in to manage your Mehndi Studio bookings.</p>
         </div>
 
-        <!-- Card -->
-        <div class="bg-white rounded-2xl shadow-xl p-8">
+        <div class="premium-card p-6 sm:p-8">
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <mat-form-field class="w-full mb-2" appearance="outline">
               <mat-label>Email</mat-label>
@@ -56,7 +55,7 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
             </mat-form-field>
 
             @if (errorMsg()) {
-              <div class="bg-red-50 text-red-700 rounded-lg p-3 text-sm mb-4">{{ errorMsg() }}</div>
+              <div class="bg-red-50 text-red-700 rounded-2xl p-3 text-sm mb-4">{{ errorMsg() }}</div>
             }
 
             <button mat-raised-button color="primary" class="w-full !py-3 !text-base" type="submit" [disabled]="loading()">
@@ -65,9 +64,9 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
             </button>
           </form>
 
-          <div class="text-center mt-6 text-sm text-gray-500">
+          <div class="text-center mt-6 text-sm text-[var(--mehndi-muted)]">
             Don't have an account?
-            <a routerLink="/auth/register" class="text-rose-600 font-medium ml-1">Sign up</a>
+            <a routerLink="/auth/register" class="text-[var(--mehndi-emerald)] font-medium ml-1">Sign up</a>
           </div>
         </div>
       </div>

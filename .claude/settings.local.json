@@ -8,7 +8,8 @@
       "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\Zaydi\\\\Documents\\\\Github\\\\mehndi-app\\\\src\" -Recurse -Directory)",
       "Bash(Select-Object -First 50)",
       "Bash(Format-Table FullName)",
-      "Bash(dir /s /b \"c:\\\\Users\\\\Zaydi\\\\Documents\\\\Github\\\\mehndi-app\\\\src\\\\app\")"
+      "Bash(dir /s /b \"c:\\\\Users\\\\Zaydi\\\\Documents\\\\Github\\\\mehndi-app\\\\src\\\\app\")",
+      "Bash(npm run *)"
     ]
   }
 }

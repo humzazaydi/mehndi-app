@@ -16,23 +16,23 @@ interface RecentBooking { id: string; booking_number: string; full_name: string;
   imports: [RouterLink, DatePipe, MatButtonModule, MatIconModule, CurrencyPkPipe, LoadingSpinnerComponent],
   template: `
     <div class="admin-page">
+      <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Studio command center</p>
       <h1 class="page-title">Dashboard</h1>
 
       @if (loading()) {
         <app-loading-spinner />
       } @else {
-        <!-- KPI Grid -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           @for (kpi of kpis(); track kpi.label) {
-            <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+            <div class="premium-card p-5">
               <div class="flex items-center justify-between mb-3">
                 <div class="w-10 h-10 rounded-xl flex items-center justify-center"
                      [style.background]="kpi.color + '20'">
                   <mat-icon [style.color]="kpi.color">{{ kpi.icon }}</mat-icon>
                 </div>
               </div>
-              <p class="text-2xl font-bold text-gray-900">{{ kpi.value }}</p>
-              <p class="text-gray-500 text-sm mt-1">{{ kpi.label }}</p>
+              <p class="text-2xl font-bold text-[var(--mehndi-deep)]">{{ kpi.value }}</p>
+              <p class="text-[var(--mehndi-muted)] text-sm mt-1">{{ kpi.label }}</p>
               @if (kpi.sub) {
                 <p class="text-xs mt-1" [style.color]="kpi.color">{{ kpi.sub }}</p>
               }
@@ -40,7 +40,6 @@ interface RecentBooking { id: string; booking_number: string; full_name: string;
           }
         </div>
 
-        <!-- Quick Links -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           @for (link of quickLinks; track link.route) {
             <a [routerLink]="link.route" mat-stroked-button class="!flex !flex-col !items-center !gap-2 !py-4 !h-auto">
@@ -50,25 +49,24 @@ interface RecentBooking { id: string; booking_number: string; full_name: string;
           }
         </div>
 
-        <!-- Recent Bookings -->
-        <div class="bg-white rounded-2xl shadow-sm p-6">
+        <div class="premium-card p-6">
           <div class="flex items-center justify-between mb-4">
             <h2 class="section-title mb-0">Recent Bookings</h2>
             <a mat-button routerLink="/admin/bookings">View All</a>
           </div>
           @if (recentBookings().length === 0) {
-            <p class="text-gray-400 text-center py-6">No bookings yet</p>
+            <p class="text-[var(--mehndi-muted)] text-center py-6">No bookings yet</p>
           } @else {
             <div class="space-y-3">
               @for (b of recentBookings(); track b.id) {
                 <a [routerLink]="['/admin/bookings', b.id]"
-                   class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition-colors no-underline">
+                   class="flex items-center justify-between gap-4 p-3 rounded-2xl hover:bg-[rgba(201,154,46,0.12)] transition-colors no-underline">
                   <div>
-                    <span class="font-semibold text-sm">{{ b.booking_number }}</span>
+                    <span class="font-semibold text-sm text-[var(--mehndi-deep)]">{{ b.booking_number }}</span>
                     <span class="status-badge {{ b.status }} ml-2 text-xs">{{ b.status }}</span>
-                    <p class="text-xs text-gray-500 mt-0.5">{{ b.full_name }} · {{ b.date | date:'mediumDate' }}</p>
+                    <p class="text-xs text-[var(--mehndi-muted)] mt-0.5">{{ b.full_name }} | {{ b.date | date:'mediumDate' }}</p>
                   </div>
-                  <span class="font-semibold text-rose-700 text-sm">{{ b.total_amount | pkr }}</span>
+                  <span class="font-semibold text-[var(--mehndi-gold)] text-sm">{{ b.total_amount | pkr }}</span>
                 </a>
               }
             </div>
@@ -109,13 +107,12 @@ export class AdminDashboardComponent implements OnInit {
     const totalRevenue = verifiedPayments.reduce((s, p) => s + p.amount, 0);
     const outstanding = allBookings.reduce((s, b) => s + b.remaining_amount, 0);
     const pending = allBookings.filter(b => b.status === 'pending').length;
-    const completed = allBookings.filter(b => b.status === 'completed').length;
 
     this.kpis.set([
-      { label: 'Total Revenue', value: 'Rs. ' + totalRevenue.toLocaleString('en-PK'), icon: 'payments', color: '#065f46', sub: 'Verified payments' },
-      { label: 'Total Bookings', value: allBookings.length, icon: 'event_note', color: '#1e40af' },
-      { label: 'Pending Approval', value: pending, icon: 'hourglass_empty', color: '#92400e' },
-      { label: 'Outstanding', value: 'Rs. ' + outstanding.toLocaleString('en-PK'), icon: 'account_balance_wallet', color: '#b5263a' },
+      { label: 'Total Revenue', value: 'Rs. ' + totalRevenue.toLocaleString('en-PK'), icon: 'payments', color: '#1f7a56', sub: 'Verified payments' },
+      { label: 'Total Bookings', value: allBookings.length, icon: 'event_note', color: '#0f3d2e' },
+      { label: 'Pending Approval', value: pending, icon: 'hourglass_empty', color: '#c99a2e' },
+      { label: 'Outstanding', value: 'Rs. ' + outstanding.toLocaleString('en-PK'), icon: 'account_balance_wallet', color: '#7c5b18' },
     ]);
   }
 
