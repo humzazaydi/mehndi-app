@@ -1,15 +1,35 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { SupabaseService } from './supabase.service';
+import { AuthService } from './auth.service';
 import { Order, OrderItem, Product, CartItem, OrderStatus } from '../models';
+
+const CART_STORAGE_KEY = 'mehndi_cart';
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {
   private supabase = inject(SupabaseService);
+  private auth = inject(AuthService);
 
   readonly products = signal<Product[]>([]);
   readonly orders = signal<Order[]>([]);
-  readonly cart = signal<CartItem[]>([]);
+  readonly myOrders = signal<Order[]>([]);
+  readonly cart = signal<CartItem[]>(this.loadCartFromStorage());
   readonly loading = signal(false);
+
+  private loadCartFromStorage(): CartItem[] {
+    try {
+      const raw = localStorage.getItem(CART_STORAGE_KEY);
+      return raw ? (JSON.parse(raw) as CartItem[]) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  private saveCartToStorage(cart: CartItem[]): void {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    } catch { /* ignore storage errors */ }
+  }
 
   async loadProducts(): Promise<void> {
     const { data } = await this.supabase.client
@@ -32,13 +52,14 @@ export class OrderService {
 
   addToCart(product: Product, quantity: number): void {
     const existing = this.cart().find(i => i.product.id === product.id);
+    let updated: CartItem[];
     if (existing) {
-      this.cart.update(cart =>
-        cart.map(i => i.product.id === product.id ? { ...i, quantity: i.quantity + quantity } : i)
-      );
+      updated = this.cart().map(i => i.product.id === product.id ? { ...i, quantity: i.quantity + quantity } : i);
     } else {
-      this.cart.update(cart => [...cart, { product, quantity }]);
+      updated = [...this.cart(), { product, quantity }];
     }
+    this.cart.set(updated);
+    this.saveCartToStorage(updated);
   }
 
   updateCartItem(productId: string, quantity: number): void {
@@ -46,17 +67,20 @@ export class OrderService {
       this.removeFromCart(productId);
       return;
     }
-    this.cart.update(cart =>
-      cart.map(i => i.product.id === productId ? { ...i, quantity } : i)
-    );
+    const updated = this.cart().map(i => i.product.id === productId ? { ...i, quantity } : i);
+    this.cart.set(updated);
+    this.saveCartToStorage(updated);
   }
 
   removeFromCart(productId: string): void {
-    this.cart.update(cart => cart.filter(i => i.product.id !== productId));
+    const updated = this.cart().filter(i => i.product.id !== productId);
+    this.cart.set(updated);
+    this.saveCartToStorage(updated);
   }
 
   clearCart(): void {
     this.cart.set([]);
+    this.saveCartToStorage([]);
   }
 
   getCartTotal(): number {
@@ -77,6 +101,8 @@ export class OrderService {
     const subtotal = this.getCartTotal();
     const total = subtotal + params.deliveryCharge;
 
+    const userId = this.auth.currentUser()?.id ?? null;
+
     const { data, error } = await this.supabase.client
       .from('orders')
       .insert({
@@ -91,6 +117,7 @@ export class OrderService {
         order_status: 'pending',
         total_amount: total,
         notes: params.notes ?? null,
+        user_id: userId,
       })
       .select()
       .single();
@@ -108,6 +135,19 @@ export class OrderService {
 
     this.clearCart();
     return order;
+  }
+
+  async loadMyOrders(): Promise<void> {
+    const userId = this.auth.currentUser()?.id;
+    if (!userId) { this.myOrders.set([]); return; }
+    this.loading.set(true);
+    const { data } = await this.supabase.client
+      .from('orders')
+      .select('*, order_items(*, products(*))')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false });
+    this.myOrders.set((data ?? []) as Order[]);
+    this.loading.set(false);
   }
 
   async updateOrderStatus(orderId: string, status: OrderStatus): Promise<void> {

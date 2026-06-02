@@ -57,16 +57,6 @@ import { BankingSettings } from '../../../core/models';
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Transaction ID</mat-label>
-            <input matInput formControlName="transactionId">
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Payment Date *</mat-label>
-            <input matInput type="date" formControlName="paymentDate">
-          </mat-form-field>
-
           <app-file-upload
             label="Upload Payment Receipt"
             hint="Screenshot, photo, or PDF of your payment"
@@ -98,8 +88,6 @@ export class PaymentFormDialogComponent {
     amount: [this.data.amount, [Validators.required, Validators.min(1)]],
     paymentMethod: ['', Validators.required],
     paymentType: ['advance', Validators.required],
-    transactionId: [''],
-    paymentDate: [new Date().toISOString().split('T')[0], Validators.required],
   });
 
   async submit(): Promise<void> {
@@ -111,9 +99,8 @@ export class PaymentFormDialogComponent {
         amount: this.form.value.amount!,
         paymentMethod: this.form.value.paymentMethod as never,
         paymentType: this.form.value.paymentType as never,
-        transactionId: this.form.value.transactionId ?? undefined,
         receiptFile: this.receiptFile,
-        paymentDate: this.form.value.paymentDate!,
+        paymentDate: new Date().toISOString().split('T')[0],
       });
       this.snackbar.success('Payment submitted! Pending admin verification.');
       this.ref.close(true);

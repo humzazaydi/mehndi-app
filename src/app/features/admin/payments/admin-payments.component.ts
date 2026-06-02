@@ -6,9 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TitleCasePipe, DatePipe } from '@angular/common';
 import { PaymentService } from '../../../core/services/payment.service';
-import { SupabaseService } from '../../../core/services/supabase.service';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { Payment } from '../../../core/models';
 import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
@@ -21,7 +21,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
   imports: [
     RouterLink, FormsModule, TitleCasePipe, DatePipe,
     MatButtonModule, MatIconModule, MatSelectModule, MatFormFieldModule, MatTableModule,
-    CurrencyPkPipe, LoadingSpinnerComponent, EmptyStateComponent,
+    MatProgressSpinnerModule, CurrencyPkPipe, LoadingSpinnerComponent, EmptyStateComponent,
   ],
   template: `
     <div class="admin-page">
@@ -83,19 +83,27 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
               <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let p">
-                  <div class="flex gap-1">
+                  <div class="flex gap-1 items-center">
                     @if (p.receipt_url) {
                       <a [href]="p.receipt_url" target="_blank" mat-icon-button title="View Receipt">
                         <mat-icon>attach_file</mat-icon>
                       </a>
                     }
                     @if (p.status === 'pending') {
-                      <button mat-icon-button color="primary" title="Verify" (click)="verify(p)">
-                        <mat-icon>check_circle</mat-icon>
-                      </button>
-                      <button mat-icon-button color="warn" title="Reject" (click)="reject(p)">
-                        <mat-icon>cancel</mat-icon>
-                      </button>
+                      @if (processingId() === p.id) {
+                        <mat-spinner diameter="24" class="mx-2" />
+                      } @else {
+                        <button mat-icon-button color="primary" title="Approve Payment"
+                                [disabled]="!!processingId()"
+                                (click)="verify(p)">
+                          <mat-icon>check_circle</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" title="Reject Payment"
+                                [disabled]="!!processingId()"
+                                (click)="reject(p)">
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      }
                     }
                   </div>
                 </td>
@@ -111,10 +119,10 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
 })
 export class AdminPaymentsComponent implements OnInit {
   paymentService = inject(PaymentService);
-  private supabase = inject(SupabaseService);
   private snackbar = inject(SnackbarService);
 
   statusFilter = 'pending';
+  processingId = signal<string | null>(null);
   columns = ['booking', 'amount', 'method', 'type', 'txn', 'date', 'status', 'actions'];
 
   async ngOnInit(): Promise<void> {
@@ -126,22 +134,30 @@ export class AdminPaymentsComponent implements OnInit {
   }
 
   async verify(payment: Payment): Promise<void> {
+    if (this.processingId()) return;
+    this.processingId.set(payment.id);
     try {
       await this.paymentService.verifyPayment(payment.id, payment.booking_id, payment.amount);
+      this.snackbar.success('Payment approved successfully');
       await this.load();
-      this.snackbar.success('Payment verified');
     } catch (err: unknown) {
-      this.snackbar.error(err instanceof Error ? err.message : 'Failed');
+      this.snackbar.error(err instanceof Error ? err.message : 'Failed to approve payment');
+    } finally {
+      this.processingId.set(null);
     }
   }
 
   async reject(payment: Payment): Promise<void> {
+    if (this.processingId()) return;
+    this.processingId.set(payment.id);
     try {
       await this.paymentService.rejectPayment(payment.id, 'Rejected by admin');
-      await this.load();
       this.snackbar.success('Payment rejected');
+      await this.load();
     } catch (err: unknown) {
-      this.snackbar.error(err instanceof Error ? err.message : 'Failed');
+      this.snackbar.error(err instanceof Error ? err.message : 'Failed to reject payment');
+    } finally {
+      this.processingId.set(null);
     }
   }
 }

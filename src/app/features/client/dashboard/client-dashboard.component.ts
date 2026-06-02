@@ -1,11 +1,12 @@
 import { Component, inject, OnInit, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { BookingService } from '../../../core/services/booking.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { OrderService } from '../../../core/services/order.service';
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
@@ -13,7 +14,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
 @Component({
   selector: 'app-client-dashboard',
   standalone: true,
-  imports: [RouterLink, DatePipe, MatButtonModule, MatIconModule, MatCardModule, StatusBadgeComponent, CurrencyPkPipe, LoadingSpinnerComponent],
+  imports: [RouterLink, DatePipe, TitleCasePipe, MatButtonModule, MatIconModule, MatCardModule, StatusBadgeComponent, CurrencyPkPipe, LoadingSpinnerComponent],
   template: `
     <div class="page-container py-10">
       <!-- Welcome -->
@@ -44,6 +45,12 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
         </a>
         <a mat-stroked-button routerLink="/client/bookings">
           <mat-icon class="mr-2">event_note</mat-icon> All Bookings
+        </a>
+        <a mat-stroked-button routerLink="/client/orders">
+          <mat-icon class="mr-2">shopping_bag</mat-icon> My Orders
+        </a>
+        <a mat-stroked-button routerLink="/store">
+          <mat-icon class="mr-2">storefront</mat-icon> Henna Store
         </a>
       </div>
 
@@ -90,12 +97,37 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
           </div>
         }
       }
+
+      <!-- Recent Orders -->
+      @if (orderService.myOrders().length > 0) {
+        <h2 class="text-lg font-semibold mb-4 mt-10">Recent Store Orders</h2>
+        <div class="space-y-3">
+          @for (order of orderService.myOrders().slice(0, 3); track order.id) {
+            <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="flex items-center gap-3 mb-1">
+                    <span class="font-semibold text-gray-900">{{ order.order_number }}</span>
+                    <span class="status-badge {{ order.order_status }}">{{ order.order_status | titlecase }}</span>
+                  </div>
+                  <p class="text-sm text-gray-500">{{ order.city }} · {{ order.created_at | date:'mediumDate' }}</p>
+                </div>
+                <p class="font-bold text-rose-700">{{ order.total_amount | pkr }}</p>
+              </div>
+            </div>
+          }
+        </div>
+        <div class="text-center mt-4">
+          <a mat-button routerLink="/client/orders">View All Orders</a>
+        </div>
+      }
     </div>
   `,
 })
 export class ClientDashboardComponent implements OnInit {
   auth = inject(AuthService);
   bookingService = inject(BookingService);
+  orderService = inject(OrderService);
 
   stats = computed(() => {
     const bookings = this.bookingService.bookings();
@@ -108,6 +140,9 @@ export class ClientDashboardComponent implements OnInit {
   });
 
   async ngOnInit(): Promise<void> {
-    await this.bookingService.loadMyBookings();
+    await Promise.all([
+      this.bookingService.loadMyBookings(),
+      this.orderService.loadMyOrders(),
+    ]);
   }
 }

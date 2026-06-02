@@ -47,6 +47,7 @@ export const routes: Routes = [
       { path: 'dashboard', loadComponent: () => import('./features/client/dashboard/client-dashboard.component').then(m => m.ClientDashboardComponent) },
       { path: 'bookings', loadComponent: () => import('./features/client/my-bookings/my-bookings.component').then(m => m.MyBookingsComponent) },
       { path: 'bookings/:id', loadComponent: () => import('./features/client/booking-detail/booking-detail.component').then(m => m.BookingDetailComponent) },
+      { path: 'orders', loadComponent: () => import('./features/client/my-orders/my-orders.component').then(m => m.MyOrdersComponent) },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },

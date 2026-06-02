@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { OrderService } from '../../../core/services/order.service';
 import { SettingsService } from '../../../core/services/settings.service';
 import { SnackbarService } from '../../../core/services/snackbar.service';
@@ -20,7 +21,7 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
   imports: [
     RouterLink, ReactiveFormsModule,
     MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule,
-    MatIconModule, MatRadioModule, MatDividerModule, MatProgressSpinnerModule,
+    MatIconModule, MatRadioModule, MatDividerModule, MatProgressSpinnerModule, MatTooltipModule,
     CurrencyPkPipe,
   ],
   template: `
@@ -111,12 +112,38 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
           <!-- Order Summary -->
           <div>
             <div class="bg-white rounded-2xl p-6 shadow-sm sticky top-24">
-              <h2 class="section-title">Order Summary</h2>
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="section-title !mb-0">Order Summary</h2>
+                <button mat-button color="warn" class="!text-xs" (click)="clearCart()"
+                        matTooltip="Remove all items">
+                  <mat-icon class="!text-base !w-4 !h-4 mr-1">delete_sweep</mat-icon>
+                  Clear Cart
+                </button>
+              </div>
               <div class="space-y-3 mb-4">
                 @for (item of orderService.cart(); track item.product.id) {
-                  <div class="flex justify-between text-sm">
-                    <span>{{ item.product.name }} × {{ item.quantity }}</span>
-                    <span class="font-medium">{{ (item.product.price * item.quantity) | pkr }}</span>
+                  <div class="flex items-center justify-between gap-2 text-sm">
+                    <div class="flex-1 min-w-0">
+                      <p class="font-medium truncate">{{ item.product.name }}</p>
+                      <p class="text-gray-400 text-xs">{{ item.product.price | pkr }} each</p>
+                    </div>
+                    <div class="flex items-center gap-1 shrink-0">
+                      <button class="w-6 h-6 rounded border border-gray-200 flex items-center justify-center hover:bg-gray-100 text-gray-600"
+                              (click)="decQty(item.product.id, item.quantity)">
+                        <mat-icon style="font-size:14px;width:14px;height:14px">remove</mat-icon>
+                      </button>
+                      <span class="w-7 text-center font-medium">{{ item.quantity }}</span>
+                      <button class="w-6 h-6 rounded border border-gray-200 flex items-center justify-center hover:bg-gray-100 text-gray-600"
+                              (click)="orderService.updateCartItem(item.product.id, item.quantity + 1)">
+                        <mat-icon style="font-size:14px;width:14px;height:14px">add</mat-icon>
+                      </button>
+                    </div>
+                    <span class="font-medium w-20 text-right shrink-0">{{ (item.product.price * item.quantity) | pkr }}</span>
+                    <button class="text-gray-300 hover:text-red-500 ml-1 shrink-0"
+                            (click)="orderService.removeFromCart(item.product.id)"
+                            matTooltip="Remove item">
+                      <mat-icon style="font-size:16px;width:16px;height:16px">close</mat-icon>
+                    </button>
                   </div>
                 }
                 <mat-divider />
@@ -188,6 +215,19 @@ export class CheckoutComponent implements OnInit {
     if (!this.isKarachi() && this.form.value.paymentMethod === 'cod') {
       this.form.patchValue({ paymentMethod: 'bank_transfer' });
     }
+  }
+
+  decQty(productId: string, currentQty: number): void {
+    if (currentQty <= 1) {
+      this.orderService.removeFromCart(productId);
+    } else {
+      this.orderService.updateCartItem(productId, currentQty - 1);
+    }
+  }
+
+  clearCart(): void {
+    this.orderService.clearCart();
+    this.router.navigate(['/store']);
   }
 
   async placeOrder(): Promise<void> {
