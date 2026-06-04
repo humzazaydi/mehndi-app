@@ -75,7 +75,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
       } @else if (filtered().length === 0) {
         <app-empty-state icon="event_note" title="No bookings found" />
       } @else {
-        <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
           <div class="overflow-x-auto">
             <table mat-table [dataSource]="filtered()" class="w-full">
               <ng-container matColumnDef="booking_number">

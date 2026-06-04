@@ -24,7 +24,7 @@ import { TermsDialogComponent } from './terms-dialog.component';
     <div class="p-4 sm:p-6">
       <h2 class="text-2xl font-semibold mb-6">Review & Confirm</h2>
 
-      <div class="bg-[rgba(15,61,46,0.06)] rounded-2xl p-5 mb-6 space-y-3 border border-[var(--mehndi-border)]">
+      <div class="bg-[rgba(225,29,72,0.06)] rounded-lg p-5 mb-6 space-y-3 border border-[var(--mehndi-border)]">
         <div class="flex justify-between text-sm">
           <span class="text-[var(--mehndi-muted)]">Artist</span>
           <span class="font-medium">{{ artistName() }}</span>
@@ -61,25 +61,25 @@ import { TermsDialogComponent } from './terms-dialog.component';
       @if (settings.banking()) {
         <div class="premium-card p-5 mb-6">
           <h3 class="font-semibold text-[var(--mehndi-deep)] mb-3 flex items-center gap-2">
-            <mat-icon class="text-[var(--mehndi-gold)]">account_balance</mat-icon>
+            <mat-icon class="text-[var(--mehndi-link)]">account_balance</mat-icon>
             Payment Details
           </h3>
           <p class="text-[var(--mehndi-muted)] text-sm mb-4">
             Please transfer the advance amount of <strong>{{ wizard.data().advanceAmount | pkr }}</strong> to any of the following accounts:
           </p>
           <div class="space-y-3 text-sm">
-            <div class="bg-[var(--mehndi-panel-soft)] rounded-2xl p-3 border border-[var(--mehndi-border)]">
+            <div class="bg-[var(--mehndi-panel-soft)] rounded-lg p-3 border border-[var(--mehndi-border)]">
               <p class="font-semibold text-[var(--mehndi-deep)]">Meezan Bank</p>
               <p class="text-[var(--mehndi-muted)]">{{ settings.banking()!.meezan.accountTitle }}</p>
               <p class="text-[var(--mehndi-muted)] font-mono">{{ settings.banking()!.meezan.accountNumber }}</p>
             </div>
-            <div class="bg-[var(--mehndi-panel-soft)] rounded-2xl p-3 border border-[var(--mehndi-border)]">
+            <div class="bg-[var(--mehndi-panel-soft)] rounded-lg p-3 border border-[var(--mehndi-border)]">
               <p class="font-semibold text-[var(--mehndi-deep)]">HBL</p>
               <p class="text-[var(--mehndi-muted)]">{{ settings.banking()!.hbl.accountTitle }}</p>
               <p class="text-[var(--mehndi-muted)] font-mono">{{ settings.banking()!.hbl.accountNumber }}</p>
               <p class="text-[var(--mehndi-muted)] text-xs">IBAN: {{ settings.banking()!.hbl.iban }}</p>
             </div>
-            <div class="bg-[var(--mehndi-panel-soft)] rounded-2xl p-3 border border-[var(--mehndi-border)]">
+            <div class="bg-[var(--mehndi-panel-soft)] rounded-lg p-3 border border-[var(--mehndi-border)]">
               <p class="font-semibold text-[var(--mehndi-deep)]">EasyPaisa / JazzCash</p>
               <p class="text-[var(--mehndi-muted)] font-mono">{{ settings.banking()!.easypaisa }}</p>
             </div>
@@ -88,7 +88,7 @@ import { TermsDialogComponent } from './terms-dialog.component';
       }
 
       <div class="mb-6">
-        <div class="flex items-start gap-3 p-4 bg-[rgba(15,61,46,0.06)] rounded-2xl border border-[var(--mehndi-border)]">
+        <div class="flex items-start gap-3 p-4 bg-[rgba(225,29,72,0.06)] rounded-lg border border-[var(--mehndi-border)]">
           <mat-checkbox
             color="primary"
             [checked]="wizard.data().termsAccepted"
@@ -96,7 +96,7 @@ import { TermsDialogComponent } from './terms-dialog.component';
           />
           <p class="text-sm text-[var(--mehndi-muted)]">
             I have read and agree to the
-            <button class="text-[var(--mehndi-emerald)] underline font-medium" (click)="openTerms()">
+            <button class="text-[var(--mehndi-link)] underline font-medium" (click)="openTerms()">
               Terms & Conditions
             </button>
             and the Important Notice.

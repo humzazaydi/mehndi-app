@@ -20,7 +20,7 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
         <p class="text-gray-500 mb-8">Thank you for your order. We'll process it shortly.</p>
 
         @if (order()) {
-          <div class="bg-white rounded-2xl shadow-sm p-6 text-left mb-8 space-y-3">
+          <div class="bg-white rounded-lg shadow-sm p-6 text-left mb-8 space-y-3">
             <div class="flex justify-between text-sm">
               <span class="text-gray-500">Order Number</span>
               <span class="font-bold text-rose-700">{{ order()!.order_number }}</span>

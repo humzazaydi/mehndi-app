@@ -33,7 +33,7 @@ const STATUS_ORDER: BookingStatus[] = ['pending', 'confirmed', 'in_progress', 'c
           </div>
 
           <!-- Timeline -->
-          <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+          <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
             <h2 class="font-semibold mb-4">Progress</h2>
             <div class="space-y-4">
               @for (step of timelineSteps; track step.status) {
@@ -56,7 +56,7 @@ const STATUS_ORDER: BookingStatus[] = ['pending', 'confirmed', 'in_progress', 'c
           </div>
 
           <!-- Details -->
-          <div class="bg-white rounded-2xl shadow-sm p-6 mb-6 space-y-3">
+          <div class="bg-white rounded-lg shadow-sm p-6 mb-6 space-y-3">
             <h2 class="font-semibold mb-4">Booking Details</h2>
             <div class="grid grid-cols-2 gap-3 text-sm">
               <div><span class="text-gray-500">Date</span><p class="font-medium">{{ booking()!.date | date }}</p></div>

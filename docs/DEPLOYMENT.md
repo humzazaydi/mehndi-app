@@ -1,4 +1,4 @@
-# Mehndi Studio — Deployment Guide
+# Mehak's Studio - Deployment Guide
 
 ## Prerequisites
 - Node.js 18+

@@ -21,9 +21,9 @@ import { CurrencyPkPipe } from '../../../../shared/pipes/currency-pk.pipe';
       } @else {
         <div class="space-y-3 mb-8">
           @for (addon of packageService.addons(); track addon.id) {
-            <div class="border-2 rounded-2xl p-4 transition-all cursor-pointer bg-[var(--mehndi-panel-soft)]"
+            <div class="border-2 rounded-lg p-4 transition-all cursor-pointer bg-[var(--mehndi-panel-soft)]"
                  [class.border-[var(--mehndi-gold)]]="isSelected(addon.id)"
-                 [class.bg-[rgba(201,154,46,0.12)]]="isSelected(addon.id)"
+                 [class.bg-[rgba(245,158,11,0.12)]]="isSelected(addon.id)"
                  [class.border-[var(--mehndi-border)]]="!isSelected(addon.id)"
                  (click)="toggleAddon(addon.id)">
               <div class="flex items-center gap-4">

@@ -29,11 +29,11 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <app-loading-spinner />
       } @else if (orderService.myOrders().length === 0) {
         <app-empty-state icon="shopping_bag" title="No orders yet"
-          subtitle="Visit the Henna Cone Store to place your first order!" />
+          subtitle="Visit Mehak's Henna Boutique to place your first order!" />
       } @else {
         <div class="space-y-4">
           @for (order of orderService.myOrders(); track order.id) {
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
               <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
                 <div>
                   <div class="flex items-center gap-3 flex-wrap mb-1">
@@ -45,8 +45,8 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                     </span>
                   </div>
                   <p class="text-sm text-gray-500">
-                    {{ order.created_at | date:'mediumDate' }} · {{ order.city }}
-                    · {{ order.payment_method === 'cod' ? 'Cash on Delivery' : 'Bank Transfer' }}
+                    {{ order.created_at | date:'mediumDate' }} - {{ order.city }}
+                    - {{ order.payment_method === 'cod' ? 'Cash on Delivery' : 'Bank Transfer' }}
                   </p>
                 </div>
                 <div class="text-right shrink-0">
@@ -63,7 +63,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                   <div class="space-y-1">
                     @for (item of order.order_items; track item.id) {
                       <div class="flex justify-between text-sm">
-                        <span class="text-gray-700">{{ item.products?.name ?? 'Product' }} × {{ item.quantity }}</span>
+                        <span class="text-gray-700">{{ item.products?.name ?? 'Product' }} x {{ item.quantity }}</span>
                         <span class="font-medium text-gray-900">{{ (item.unit_price * item.quantity) | pkr }}</span>
                       </div>
                     }
@@ -83,7 +83,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                         {{ step.label }}
                       </span>
                       @if (!$last) {
-                        <span class="text-gray-200 mx-1">—</span>
+                        <span class="text-gray-200 mx-1">-</span>
                       }
                     </div>
                   }

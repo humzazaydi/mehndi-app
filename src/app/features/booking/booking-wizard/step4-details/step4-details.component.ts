@@ -69,7 +69,7 @@ import { environment } from '../../../../../environments/environment';
               [center]="mapCenter"
               [zoom]="12"
               (mapClick)="onMapClick($event)"
-              class="rounded-2xl overflow-hidden border border-[var(--mehndi-border)]"
+              class="rounded-lg overflow-hidden border border-[var(--mehndi-border)]"
             >
               @if (marker()) {
                 <map-marker [position]="marker()!" />

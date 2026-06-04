@@ -45,7 +45,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <div class="space-y-4">
           @for (booking of filtered(); track booking.id) {
             <a [routerLink]="['/client/bookings', booking.id]"
-               class="block bg-white rounded-2xl shadow-sm border border-gray-100 hover:border-rose-300 hover:shadow-md transition-all no-underline p-6">
+               class="block bg-white rounded-lg shadow-sm border border-gray-100 hover:border-rose-300 hover:shadow-md transition-all no-underline p-6">
               <div class="flex flex-wrap items-start justify-between gap-4">
                 <div class="flex-1">
                   <div class="flex items-center gap-3 flex-wrap mb-2">

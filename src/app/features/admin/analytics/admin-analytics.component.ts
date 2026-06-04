@@ -61,7 +61,7 @@ interface ArtistPerformance {
       @if (loading()) {
         <app-loading-spinner />
       } @else if (error()) {
-        <div class="bg-red-50 border border-red-200 rounded-2xl p-6 text-center">
+        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
           <mat-icon class="text-red-500 mb-2" style="font-size:40px;width:40px;height:40px">error_outline</mat-icon>
           <p class="text-red-700 font-semibold mb-1">Failed to load analytics</p>
           <p class="text-red-500 text-sm mb-4">{{ error() }}</p>
@@ -72,7 +72,7 @@ interface ArtistPerformance {
         <!-- ── Revenue KPIs ──────────────────────────────── -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           @for (k of revenueKPIs(); track k.label) {
-            <div class="bg-white rounded-2xl p-5 shadow-sm">
+            <div class="bg-white rounded-lg p-5 shadow-sm">
               <p class="text-gray-500 text-sm mb-1">{{ k.label }}</p>
               <p class="text-2xl font-bold text-gray-900">{{ k.value }}</p>
             </div>
@@ -81,7 +81,7 @@ interface ArtistPerformance {
 
         <!-- ── Charts Row 1 ──────────────────────────────── -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-          <div class="bg-white rounded-2xl shadow-sm p-5">
+          <div class="bg-white rounded-lg shadow-sm p-5">
             <h3 class="section-title">Monthly Revenue</h3>
             @if (hasMonthlyData()) {
               <div echarts [options]="monthlyRevenueChart()" class="h-64"></div>
@@ -91,7 +91,7 @@ interface ArtistPerformance {
               </div>
             }
           </div>
-          <div class="bg-white rounded-2xl shadow-sm p-5">
+          <div class="bg-white rounded-lg shadow-sm p-5">
             <h3 class="section-title">Bookings by Status</h3>
             @if (hasStatusData()) {
               <div echarts [options]="bookingStatusChart()" class="h-64"></div>
@@ -104,7 +104,7 @@ interface ArtistPerformance {
         </div>
 
         <!-- ── Revenue by Package ────────────────────────── -->
-        <div class="bg-white rounded-2xl shadow-sm p-5 mb-6">
+        <div class="bg-white rounded-lg shadow-sm p-5 mb-6">
           <h3 class="section-title">Revenue by Package</h3>
           @if (hasPackageData()) {
             <div echarts [options]="packageRevenueChart()" class="h-56"></div>
@@ -118,7 +118,7 @@ interface ArtistPerformance {
         <!-- ── Booking KPIs ──────────────────────────────── -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           @for (k of bookingKPIs(); track k.label) {
-            <div class="bg-white rounded-2xl p-5 shadow-sm">
+            <div class="bg-white rounded-lg p-5 shadow-sm">
               <p class="text-gray-500 text-sm mb-1">{{ k.label }}</p>
               <p class="text-2xl font-bold text-gray-900">{{ k.value }}</p>
             </div>
@@ -130,12 +130,12 @@ interface ArtistPerformance {
           <h2 class="section-title mb-6">Artist Performance</h2>
 
           @if (artistPerformance().length === 0) {
-            <div class="bg-white rounded-2xl p-8 text-center text-[var(--mehndi-muted)]">
+            <div class="bg-white rounded-lg p-8 text-center text-[var(--mehndi-muted)]">
               No artist data for this period
             </div>
           } @else {
             <!-- Revenue comparison chart (horizontal) -->
-            <div class="bg-white rounded-2xl shadow-sm p-5 mb-6">
+            <div class="bg-white rounded-lg shadow-sm p-5 mb-6">
               <p class="text-sm font-semibold text-[var(--mehndi-muted)] uppercase tracking-wider mb-4">Revenue Comparison</p>
               <div echarts [options]="artistRevenueChart()" [style.height.px]="Math.max(160, artistPerformance().length * 48)"></div>
             </div>
@@ -143,7 +143,7 @@ interface ArtistPerformance {
             <!-- Per-artist detail cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
               @for (a of artistPerformance(); track a.artist_id; let rank = $index) {
-                <div class="bg-white rounded-2xl shadow-sm p-5 flex flex-col gap-4">
+                <div class="bg-white rounded-lg shadow-sm p-5 flex flex-col gap-4">
 
                   <!-- Header -->
                   <div class="flex items-center gap-3">
@@ -160,7 +160,7 @@ interface ArtistPerformance {
 
                   <!-- Booking counts -->
                   <div class="grid grid-cols-4 gap-2 text-center">
-                    <div class="rounded-xl p-2" style="background:rgba(15,61,46,0.06)">
+                    <div class="rounded-xl p-2" style="background:rgba(225,29,72,0.06)">
                       <p class="text-lg font-bold text-[var(--mehndi-deep)]">{{ a.total_bookings }}</p>
                       <p class="text-xs text-[var(--mehndi-muted)]">Total</p>
                     </div>
@@ -168,7 +168,7 @@ interface ArtistPerformance {
                       <p class="text-lg font-bold text-emerald-700">{{ a.completed_bookings }}</p>
                       <p class="text-xs text-[var(--mehndi-muted)]">Done</p>
                     </div>
-                    <div class="rounded-xl p-2" style="background:rgba(201,154,46,0.1)">
+                    <div class="rounded-xl p-2" style="background:rgba(245,158,11,0.1)">
                       <p class="text-lg font-bold text-amber-700">{{ a.confirmed_bookings + a.pending_bookings }}</p>
                       <p class="text-xs text-[var(--mehndi-muted)]">Active</p>
                     </div>
@@ -184,7 +184,7 @@ interface ArtistPerformance {
                       <span class="text-[var(--mehndi-muted)]">Completion Rate</span>
                       <span class="font-semibold text-[var(--mehndi-deep)]">{{ a.completion_rate }}%</span>
                     </div>
-                    <div class="h-2 rounded-full overflow-hidden" style="background:rgba(15,61,46,0.08)">
+                    <div class="h-2 rounded-full overflow-hidden" style="background:rgba(225,29,72,0.08)">
                       <div class="h-full rounded-full transition-all"
                            [style.width.%]="a.completion_rate"
                            [style.background]="completionColor(a.completion_rate)">
@@ -323,7 +323,7 @@ export class AdminAnalyticsComponent implements OnInit {
       tooltip: { trigger: 'axis', valueFormatter: (v: unknown) => `Rs. ${Number(v).toLocaleString()}` },
       xAxis: { type: 'category', data: data.map(d => d.month) },
       yAxis: { type: 'value', axisLabel: { formatter: (v: number) => `Rs. ${v.toLocaleString()}` } },
-      series: [{ name: 'Revenue', type: 'bar', data: data.map(d => Number(d.revenue)), itemStyle: { color: '#0f3d2e' } }],
+      series: [{ name: 'Revenue', type: 'bar', data: data.map(d => Number(d.revenue)), itemStyle: { color: '#e11d48' } }],
       grid: { containLabel: true, left: 16, right: 16, top: 16, bottom: 16 },
     });
   }
@@ -386,13 +386,13 @@ export class AdminAnalyticsComponent implements OnInit {
       series: [{
         type: 'bar',
         data: sorted.map(a => a.total_revenue),
-        itemStyle: { color: '#1f7a56', borderRadius: [0, 6, 6, 0] },
+        itemStyle: { color: '#009688', borderRadius: [0, 6, 6, 0] },
         label: {
           show: true,
           position: 'right',
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           formatter: (p: any) => `Rs. ${Number(p.value).toLocaleString()}`,
-          color: '#0f3d2e',
+          color: '#e11d48',
           fontWeight: 'bold',
           fontSize: 11,
         },

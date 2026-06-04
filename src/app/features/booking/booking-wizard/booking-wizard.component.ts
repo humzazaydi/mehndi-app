@@ -27,9 +27,9 @@ const STEP_LABELS = ['Artist & Package', 'Date & Time', 'Add-ons', 'Your Details
     <div class="min-h-screen luxury-shell py-6 sm:py-10">
       <div class="max-w-3xl mx-auto px-4">
         <div class="text-center mb-8">
-          <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Bridal booking</p>
+          <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-link)] font-semibold mb-2">Bridal booking</p>
           <h1 class="text-4xl sm:text-5xl font-bold">
-            Reserve Your Mehndi Session
+            Reserve Your Mehak's Session
           </h1>
           <p class="text-[var(--mehndi-muted)] mt-3">Choose your artist, ceremony date, bespoke details, and advance payment.</p>
         </div>
@@ -54,7 +54,7 @@ const STEP_LABELS = ['Artist & Package', 'Date & Time', 'Add-ons', 'Your Details
               @if (i < stepLabels.length - 1) {
                 <div class="h-0.5 flex-1 mx-2 transition-colors"
                      [class.bg-[var(--mehndi-gold)]]="i < wizard.currentStep()"
-                     [class.bg-[rgba(15,61,46,0.12)]]="i >= wizard.currentStep()"></div>
+                     [class.bg-[rgba(225,29,72,0.12)]]="i >= wizard.currentStep()"></div>
               }
             }
           </div>

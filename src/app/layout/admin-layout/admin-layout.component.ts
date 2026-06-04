@@ -36,19 +36,19 @@ interface NavItem {
       >
         <div class="p-4 border-b border-[var(--mehndi-border)]">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 brand-gradient rounded-2xl flex items-center justify-center shadow-lg ornate-border">
+            <div class="w-10 h-10 brand-gradient rounded-lg flex items-center justify-center shadow-lg ornate-border">
               <span class="text-white font-bold text-lg" style="font-family:'Playfair Display',serif">M</span>
             </div>
             <div>
-              <p class="font-semibold text-sm leading-none" style="font-family:'Playfair Display',serif;color:var(--mehndi-heading)">Mehndi Studio</p>
-              <p class="text-xs opacity-60 mt-1">Admin Atelier</p>
+              <p class="font-semibold text-sm leading-none" style="font-family:'Playfair Display',serif;color:var(--mehndi-heading)">Mehak's Studio</p>
+              <p class="text-xs opacity-60 mt-1">Studio Admin</p>
             </div>
           </div>
         </div>
 
         <mat-nav-list class="py-3 px-2">
           @for (item of navItems; track item.route) {
-            <a mat-list-item [routerLink]="item.route" routerLinkActive="!bg-[rgba(201,154,46,0.16)] !text-[var(--mehndi-deep)] !font-semibold" class="!rounded-2xl !mb-1">
+            <a mat-list-item [routerLink]="item.route" routerLinkActive="!bg-[rgba(225,29,72,0.1)] !text-[var(--mehndi-link)] !font-semibold" class="!rounded-lg !mb-1" (click)="isMobile() && sidenav.close()">
               <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
               <span matListItemTitle>{{ item.label }}</span>
             </a>
@@ -131,7 +131,7 @@ export class AdminLayoutComponent {
     { label: 'Packages', icon: 'inventory_2', route: '/admin/packages' },
     { label: 'Payments', icon: 'payments', route: '/admin/payments' },
     { label: 'Analytics', icon: 'bar_chart', route: '/admin/analytics' },
-    { label: 'Cone Store', icon: 'shopping_bag', route: '/admin/store' },
+    { label: 'Boutique', icon: 'shopping_bag', route: '/admin/store' },
     { label: 'Settings', icon: 'settings', route: '/admin/settings' },
   ];
 

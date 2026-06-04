@@ -26,7 +26,7 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
           <div class="py-6 max-w-2xl">
             <p class="text-gray-500 text-sm mb-6">These details appear in the booking review step for client payment reference.</p>
             <form [formGroup]="bankingForm" (ngSubmit)="saveBanking()" class="space-y-6">
-              <div class="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+              <div class="bg-white rounded-lg p-6 shadow-sm space-y-4">
                 <h3 class="section-title">Meezan Bank</h3>
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Account Title</mat-label>
@@ -38,7 +38,7 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
                 </mat-form-field>
               </div>
 
-              <div class="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+              <div class="bg-white rounded-lg p-6 shadow-sm space-y-4">
                 <h3 class="section-title">HBL</h3>
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Account Title</mat-label>
@@ -54,7 +54,7 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
                 </mat-form-field>
               </div>
 
-              <div class="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+              <div class="bg-white rounded-lg p-6 shadow-sm space-y-4">
                 <h3 class="section-title">Mobile Money</h3>
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>EasyPaisa / JazzCash Number</mat-label>
@@ -73,7 +73,7 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
         <!-- Business Settings -->
         <mat-tab label="Business Rules">
           <div class="py-6 max-w-xl">
-            <form [formGroup]="businessForm" (ngSubmit)="saveBusiness()" class="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <form [formGroup]="businessForm" (ngSubmit)="saveBusiness()" class="bg-white rounded-lg p-6 shadow-sm space-y-4">
               <mat-form-field appearance="outline" class="w-full">
                 <mat-label>Advance Payment % (e.g. 50)</mat-label>
                 <input matInput type="number" formControlName="advancePercentage">
@@ -105,7 +105,7 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
         <mat-tab label="Content & Notices">
           <div class="py-6 space-y-6 max-w-3xl">
             @for (block of ['important_notice', 'terms_conditions', 'package_disclaimer']; track block) {
-              <div class="bg-white rounded-2xl p-6 shadow-sm">
+              <div class="bg-white rounded-lg p-6 shadow-sm">
                 <h3 class="section-title capitalize">{{ block.replace('_', ' ') }}</h3>
                 @if (contentForms()[block]) {
                   <form [formGroup]="contentForms()[block]" (ngSubmit)="saveContent(block)">

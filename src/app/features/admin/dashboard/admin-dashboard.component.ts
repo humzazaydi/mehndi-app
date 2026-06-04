@@ -16,7 +16,7 @@ interface RecentBooking { id: string; booking_number: string; full_name: string;
   imports: [RouterLink, DatePipe, MatButtonModule, MatIconModule, CurrencyPkPipe, LoadingSpinnerComponent],
   template: `
     <div class="admin-page">
-      <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Studio command center</p>
+      <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-link)] font-semibold mb-2">Studio command center</p>
       <h1 class="page-title">Dashboard</h1>
 
       @if (loading()) {
@@ -60,7 +60,7 @@ interface RecentBooking { id: string; booking_number: string; full_name: string;
             <div class="space-y-3">
               @for (b of recentBookings(); track b.id) {
                 <a [routerLink]="['/admin/bookings', b.id]"
-                   class="flex items-center justify-between gap-4 p-3 rounded-2xl hover:bg-[rgba(201,154,46,0.12)] transition-colors no-underline">
+                   class="flex items-center justify-between gap-4 p-3 rounded-lg hover:bg-[rgba(245,158,11,0.12)] transition-colors no-underline">
                   <div>
                     <span class="font-semibold text-sm text-[var(--mehndi-deep)]">{{ b.booking_number }}</span>
                     <span class="status-badge {{ b.status }} ml-2 text-xs">{{ b.status }}</span>
@@ -109,10 +109,10 @@ export class AdminDashboardComponent implements OnInit {
     const pending = allBookings.filter(b => b.status === 'pending').length;
 
     this.kpis.set([
-      { label: 'Total Revenue', value: 'Rs. ' + totalRevenue.toLocaleString('en-PK'), icon: 'payments', color: '#1f7a56', sub: 'Verified payments' },
-      { label: 'Total Bookings', value: allBookings.length, icon: 'event_note', color: '#0f3d2e' },
-      { label: 'Pending Approval', value: pending, icon: 'hourglass_empty', color: '#c99a2e' },
-      { label: 'Outstanding', value: 'Rs. ' + outstanding.toLocaleString('en-PK'), icon: 'account_balance_wallet', color: '#7c5b18' },
+      { label: 'Total Revenue', value: 'Rs. ' + totalRevenue.toLocaleString('en-PK'), icon: 'payments', color: '#009688', sub: 'Verified payments' },
+      { label: 'Total Bookings', value: allBookings.length, icon: 'event_note', color: '#e11d48' },
+      { label: 'Pending Approval', value: pending, icon: 'hourglass_empty', color: '#f59e0b' },
+      { label: 'Outstanding', value: 'Rs. ' + outstanding.toLocaleString('en-PK'), icon: 'account_balance_wallet', color: '#8f1d4d' },
     ]);
   }
 

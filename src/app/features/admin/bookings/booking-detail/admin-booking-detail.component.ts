@@ -78,7 +78,7 @@ import { ConfirmDialogComponent } from '../../../../shared/components/confirm-di
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div class="lg:col-span-2 space-y-6">
             <!-- Info -->
-            <div class="bg-white rounded-2xl shadow-sm p-6">
+            <div class="bg-white rounded-lg shadow-sm p-6">
               <h2 class="section-title">Booking Information</h2>
               <div class="grid grid-cols-2 gap-4 text-sm">
                 <div><p class="text-gray-500">Client</p><p class="font-medium">{{ booking()!.full_name }}</p></div>
@@ -97,7 +97,7 @@ import { ConfirmDialogComponent } from '../../../../shared/components/confirm-di
             </div>
 
             <!-- Payments -->
-            <div class="bg-white rounded-2xl shadow-sm p-6">
+            <div class="bg-white rounded-lg shadow-sm p-6">
               <h2 class="section-title">Payments</h2>
               @if (paymentService.payments().length === 0) {
                 <p class="text-gray-400 text-sm">No payments submitted yet</p>
@@ -138,7 +138,7 @@ import { ConfirmDialogComponent } from '../../../../shared/components/confirm-di
 
           <!-- Summary -->
           <div>
-            <div class="bg-white rounded-2xl shadow-sm p-6 sticky top-24">
+            <div class="bg-white rounded-lg shadow-sm p-6 sticky top-24">
               <h2 class="section-title">Payment Summary</h2>
               <div class="space-y-3 text-sm">
                 <div class="flex justify-between"><span class="text-gray-500">Total</span><span class="font-bold text-rose-700">{{ booking()!.total_amount | pkr }}</span></div>

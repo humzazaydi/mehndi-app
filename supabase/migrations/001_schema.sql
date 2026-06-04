@@ -1,5 +1,5 @@
 -- ============================================================
--- Mehndi Studio — Database Schema
+-- Mehak's Studio - Database Schema
 -- Run in Supabase Dashboard → SQL Editor
 -- ============================================================
 

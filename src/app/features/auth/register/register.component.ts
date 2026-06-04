@@ -20,14 +20,14 @@ import { AuthService } from '../../../core/services/auth.service';
       <div class="absolute inset-0 mehndi-motif opacity-20"></div>
       <div class="w-full max-w-md">
         <div class="text-center mb-8 relative">
-          <div class="w-16 h-16 brand-gradient rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg ornate-border">
+          <div class="w-16 h-16 brand-gradient rounded-lg flex items-center justify-center mx-auto mb-4 shadow-lg ornate-border">
             <span class="text-white font-bold text-3xl" style="font-family:'Playfair Display',serif">M</span>
           </div>
-          <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Begin your booking</p>
+          <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-link)] font-semibold mb-2">Begin your booking</p>
           <h1 class="text-3xl font-bold">
             Create Account
           </h1>
-          <p class="text-[var(--mehndi-muted)] text-sm mt-1">Join Mehndi Studio to reserve and manage your session.</p>
+          <p class="text-[var(--mehndi-muted)] text-sm mt-1">Join Mehak's Studio to reserve and manage your session.</p>
         </div>
 
         <div class="premium-card p-6 sm:p-8">
@@ -71,10 +71,10 @@ import { AuthService } from '../../../core/services/auth.service';
             </div>
 
             @if (errorMsg()) {
-              <div class="bg-red-50 text-red-700 rounded-2xl p-3 text-sm mb-4">{{ errorMsg() }}</div>
+              <div class="bg-red-50 text-red-700 rounded-lg p-3 text-sm mb-4">{{ errorMsg() }}</div>
             }
             @if (successMsg()) {
-              <div class="bg-green-50 text-green-700 rounded-2xl p-3 text-sm mb-4">{{ successMsg() }}</div>
+              <div class="bg-green-50 text-green-700 rounded-lg p-3 text-sm mb-4">{{ successMsg() }}</div>
             }
 
             <button mat-raised-button color="primary" class="w-full !py-3 !text-base mt-2" type="submit" [disabled]="loading()">
@@ -85,7 +85,7 @@ import { AuthService } from '../../../core/services/auth.service';
 
           <div class="text-center mt-6 text-sm text-[var(--mehndi-muted)]">
             Already have an account?
-            <a routerLink="/auth/login" class="text-[var(--mehndi-emerald)] font-medium ml-1">Sign in</a>
+            <a routerLink="/auth/login" class="text-[var(--mehndi-link)] font-medium ml-1">Sign in</a>
           </div>
         </div>
       </div>

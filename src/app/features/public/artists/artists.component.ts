@@ -13,7 +13,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
   template: `
     <div class="page-container py-12 sm:py-16">
       <div class="text-center mb-12">
-        <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Studio artists</p>
+        <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-link)] font-semibold mb-2">Studio artists</p>
         <h1 class="text-4xl sm:text-5xl font-bold mb-4">Our Artists</h1>
         <p class="text-[var(--mehndi-muted)] max-w-xl mx-auto">
           Meet talented henna artists with distinct bridal styles, careful technique, and a love for traditional detail.
@@ -46,7 +46,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                 </p>
 
                 @if (artist.artist_packages && artist.artist_packages.length > 0) {
-                  <div class="flex items-center gap-2 text-sm text-[var(--mehndi-emerald)] mb-4">
+                  <div class="flex items-center gap-2 text-sm text-[var(--mehndi-link)] mb-4">
                     <mat-icon style="font-size:16px;width:16px;height:16px">inventory_2</mat-icon>
                     <span>{{ artist.artist_packages.length }} package(s) available</span>
                   </div>

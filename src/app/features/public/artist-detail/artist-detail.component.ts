@@ -65,7 +65,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
 
             <!-- Booking CTA -->
             <div>
-              <div class="bg-rose-50 rounded-2xl p-6 sticky top-24">
+              <div class="bg-rose-50 rounded-lg p-6 sticky top-24">
                 <h3 class="font-semibold text-lg mb-4">Ready to Book?</h3>
                 <p class="text-gray-600 text-sm mb-6">
                   Book a session with {{ artist()!.name }} and create memories that last a lifetime.

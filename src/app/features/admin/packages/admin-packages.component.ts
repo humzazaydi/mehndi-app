@@ -61,7 +61,7 @@ import { AssignPackageDialogComponent } from './assign-package-dialog.component'
                   No packages assigned yet. Click "Assign Package" to add one.
                 </p>
               } @else {
-                <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                   <table mat-table [dataSource]="artistPackages()">
 
                     <ng-container matColumnDef="name">
@@ -130,7 +130,7 @@ import { AssignPackageDialogComponent } from './assign-package-dialog.component'
                 <mat-icon class="mr-2">add</mat-icon> New Template
               </button>
             </div>
-            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
               <table mat-table [dataSource]="packageService.packages()">
                 <ng-container matColumnDef="sort_order">
                   <th mat-header-cell *matHeaderCellDef class="!font-semibold">#</th>
@@ -177,7 +177,7 @@ import { AssignPackageDialogComponent } from './assign-package-dialog.component'
                 <mat-icon class="mr-2">add</mat-icon> Add Add-on
               </button>
             </div>
-            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
               <table mat-table [dataSource]="packageService.addons()">
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef class="!font-semibold">Name</th>

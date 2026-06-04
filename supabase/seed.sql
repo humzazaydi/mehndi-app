@@ -1,5 +1,5 @@
 -- ============================================================
--- Seed Data for Mehndi Studio
+-- Seed Data for Mehak's Studio
 -- Run AFTER all migrations
 -- ============================================================
 

@@ -21,14 +21,14 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
       <div class="absolute inset-0 mehndi-motif opacity-20"></div>
       <div class="w-full max-w-md">
         <div class="text-center mb-8 relative">
-          <div class="w-16 h-16 brand-gradient rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg ornate-border">
+          <div class="w-16 h-16 brand-gradient rounded-lg flex items-center justify-center mx-auto mb-4 shadow-lg ornate-border">
             <span class="text-white font-bold text-3xl" style="font-family:'Playfair Display',serif">M</span>
           </div>
-          <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Client access</p>
+          <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-link)] font-semibold mb-2">Client access</p>
           <h1 class="text-3xl font-bold">
             Welcome Back
           </h1>
-          <p class="text-[var(--mehndi-muted)] text-sm mt-1">Sign in to manage your Mehndi Studio bookings.</p>
+          <p class="text-[var(--mehndi-muted)] text-sm mt-1">Sign in to manage your Mehak's Studio bookings.</p>
         </div>
 
         <div class="premium-card p-6 sm:p-8">
@@ -55,7 +55,7 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
             </mat-form-field>
 
             @if (errorMsg()) {
-              <div class="bg-red-50 text-red-700 rounded-2xl p-3 text-sm mb-4">{{ errorMsg() }}</div>
+              <div class="bg-red-50 text-red-700 rounded-lg p-3 text-sm mb-4">{{ errorMsg() }}</div>
             }
 
             <button mat-raised-button color="primary" class="w-full !py-3 !text-base" type="submit" [disabled]="loading()">
@@ -66,7 +66,7 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
 
           <div class="text-center mt-6 text-sm text-[var(--mehndi-muted)]">
             Don't have an account?
-            <a routerLink="/auth/register" class="text-[var(--mehndi-emerald)] font-medium ml-1">Sign up</a>
+            <a routerLink="/auth/register" class="text-[var(--mehndi-link)] font-medium ml-1">Sign up</a>
           </div>
         </div>
       </div>

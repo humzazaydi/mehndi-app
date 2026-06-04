@@ -16,8 +16,8 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
   template: `
     <div class="page-container py-12">
       <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold mb-4" style="font-family:'Playfair Display',serif">Henna Cone Store</h1>
-        <p class="text-gray-500 max-w-xl mx-auto">Premium quality henna cones delivered to your door.</p>
+        <h1 class="text-4xl font-bold mb-4" style="font-family:'Playfair Display',serif">Mehak's Henna Boutique</h1>
+        <p class="text-gray-500 max-w-xl mx-auto">Premium henna cones curated by Mehak's Studio and delivered to your door.</p>
       </div>
 
       @if (loading()) {
@@ -28,7 +28,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
           <h2 class="text-2xl font-bold mb-6" style="font-family:'Playfair Display',serif">Regular Cones</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @for (product of regularCones(); track product.id) {
-              <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+              <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
                 <div class="h-40 bg-gradient-to-br from-rose-100 to-amber-100 flex items-center justify-center">
                   <mat-icon style="font-size:80px;width:80px;height:80px;color:#b5263a;opacity:0.4">spa</mat-icon>
                 </div>
@@ -76,11 +76,11 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
           <h2 class="text-2xl font-bold mb-2" style="font-family:'Playfair Display',serif">Organic Cones</h2>
           <p class="text-amber-700 text-sm mb-6 bg-amber-50 rounded-lg p-3 inline-block">
             <mat-icon class="align-middle mr-1" style="font-size:16px">info</mat-icon>
-            Organic cones are fixed price — no discounts applicable.
+            Organic cones are fixed price - no discounts applicable.
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @for (product of organicCones(); track product.id) {
-              <div class="bg-white rounded-2xl shadow-sm border border-green-100 overflow-hidden hover:shadow-md transition-shadow">
+              <div class="bg-white rounded-lg shadow-sm border border-green-100 overflow-hidden hover:shadow-md transition-shadow">
                 <div class="h-40 bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center">
                   <mat-icon style="font-size:80px;width:80px;height:80px;color:#065f46;opacity:0.4">eco</mat-icon>
                 </div>
@@ -113,21 +113,21 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
         </section>
 
         <!-- Delivery Info -->
-        <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+        <div class="bg-gray-50 rounded-lg p-6 mb-8">
           <h3 class="font-semibold mb-3">Delivery Information</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
             <div class="flex items-start gap-2">
               <mat-icon class="text-rose-600 shrink-0">local_shipping</mat-icon>
               <div>
                 <p class="font-medium">Karachi</p>
-                <p class="text-gray-500">Rs. 300 delivery · COD available</p>
+                <p class="text-gray-500">Rs. 300 delivery - COD available</p>
               </div>
             </div>
             <div class="flex items-start gap-2">
               <mat-icon class="text-rose-600 shrink-0">local_shipping</mat-icon>
               <div>
                 <p class="font-medium">Other Cities</p>
-                <p class="text-gray-500">Rs. 600 delivery · Bank transfer only</p>
+                <p class="text-gray-500">Rs. 600 delivery - bank transfer only</p>
               </div>
             </div>
           </div>
@@ -136,9 +136,9 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
         <!-- Cart Floating Button -->
         @if (orderService.cart().length > 0) {
           <div class="fixed bottom-6 right-6 z-50">
-            <a routerLink="/store/checkout" mat-raised-button color="primary" class="!rounded-full !px-6 !py-3 shadow-xl">
+            <a routerLink="/store/checkout" mat-raised-button color="primary" class="!rounded-lg !px-6 !py-3 shadow-xl">
               <mat-icon [matBadge]="cartItemCount()" matBadgeColor="warn" class="mr-2">shopping_cart</mat-icon>
-              Checkout · {{ orderService.getCartTotal() | pkr }}
+              Checkout - {{ orderService.getCartTotal() | pkr }}
             </a>
           </div>
         }

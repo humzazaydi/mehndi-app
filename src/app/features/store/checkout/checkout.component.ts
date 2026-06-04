@@ -40,7 +40,7 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
           <div class="lg:col-span-2">
             <form [formGroup]="form" class="space-y-6">
               <!-- Customer Info -->
-              <div class="bg-white rounded-2xl p-6 shadow-sm">
+              <div class="bg-white rounded-lg p-6 shadow-sm">
                 <h2 class="section-title">Contact Details</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <mat-form-field appearance="outline" class="sm:col-span-2">
@@ -59,7 +59,7 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
               </div>
 
               <!-- Delivery -->
-              <div class="bg-white rounded-2xl p-6 shadow-sm">
+              <div class="bg-white rounded-lg p-6 shadow-sm">
                 <h2 class="section-title">Delivery Address</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <mat-form-field appearance="outline">
@@ -79,7 +79,7 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
               </div>
 
               <!-- Payment -->
-              <div class="bg-white rounded-2xl p-6 shadow-sm">
+              <div class="bg-white rounded-lg p-6 shadow-sm">
                 <h2 class="section-title">Payment Method</h2>
                 <mat-radio-group formControlName="paymentMethod" class="flex flex-col gap-3">
                   @if (isKarachi()) {
@@ -111,7 +111,7 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
 
           <!-- Order Summary -->
           <div>
-            <div class="bg-white rounded-2xl p-6 shadow-sm sticky top-24">
+            <div class="bg-white rounded-lg p-6 shadow-sm sticky top-24">
               <div class="flex items-center justify-between mb-4">
                 <h2 class="section-title !mb-0">Order Summary</h2>
                 <button mat-button color="warn" class="!text-xs" (click)="clearCart()"

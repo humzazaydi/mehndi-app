@@ -26,7 +26,7 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
         </p>
 
         @if (booking()) {
-          <div class="bg-white rounded-2xl shadow-sm p-6 text-left mb-8 space-y-3">
+          <div class="bg-white rounded-lg shadow-sm p-6 text-left mb-8 space-y-3">
             <div class="flex justify-between text-sm">
               <span class="text-gray-500">Booking Number</span>
               <span class="font-bold text-rose-700">{{ booking()!.booking_number }}</span>

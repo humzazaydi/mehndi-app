@@ -14,18 +14,18 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
   imports: [RouterLink, MatButtonModule, MatIconModule, MatCardModule, CurrencyPkPipe],
   template: `
     <section class="relative overflow-hidden min-h-[calc(100vh-64px)] flex items-center pb-10"
-             style="background:linear-gradient(145deg,rgba(15,61,46,0.96),rgba(31,122,86,0.9) 52%,rgba(201,154,46,0.78))">
+             style="background:linear-gradient(145deg,rgba(74,18,48,0.98),rgba(225,29,72,0.92) 42%,rgba(0,150,136,0.9) 82%,rgba(245,158,11,0.88))">
       <div class="absolute inset-0 mehndi-motif opacity-35"></div>
       <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[var(--mehndi-ivory)] to-transparent"></div>
 
       <div class="page-container relative z-10 grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center text-white">
         <div class="py-12 sm:py-18">
-          <p class="text-[var(--mehndi-gold-soft)] text-xs font-semibold uppercase tracking-[0.28em] mb-4">Traditional bridal henna</p>
+          <p class="text-[var(--mehndi-gold-soft)] text-xs font-semibold uppercase tracking-[0.28em] mb-4">Vibrant bridal henna</p>
           <h1 class="text-[clamp(3rem,14vw,6.4rem)] font-extrabold leading-[0.92] mb-6 text-white">
-            Mehndi Studio
+            Mehak's Studio
           </h1>
           <p class="text-lg sm:text-xl text-[rgba(255,250,240,0.88)] leading-relaxed max-w-xl mb-8">
-            Artist-led bridal mehndi bookings with authentic South Asian detailing, natural henna, and a polished experience from consultation to celebration.
+            Artist-led mehndi bookings with authentic South Asian detailing, vivid celebration color, natural henna, and a polished flow from consultation to event day.
           </p>
           <div class="flex flex-col sm:flex-row gap-3">
             <a mat-raised-button routerLink="/booking" class="!bg-[var(--mehndi-ivory)] !text-[var(--mehndi-deep)] !px-8 !py-4 !text-base">
@@ -38,8 +38,8 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
         </div>
 
         <div class="relative">
-          <div class="mehndi-surface ornate-border p-5 sm:p-7 bg-[var(--mehndi-panel)]">
-            <div class="aspect-[4/5] rounded-[28px] overflow-hidden brand-gradient relative">
+          <div class="mehndi-surface ornate-border p-3 sm:p-4 bg-[var(--mehndi-panel)]">
+            <div class="aspect-[4/5] rounded-lg overflow-hidden brand-gradient relative">
               <img
                 src="/images/bridal-henna-artistry.png"
                 alt="Intricate bridal mehndi design with mandala and floral henna details"
@@ -48,10 +48,10 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
               >
               <div class="absolute inset-0 bg-gradient-to-t from-[rgba(8,24,18,0.88)] via-[rgba(8,24,18,0.28)] to-[rgba(8,24,18,0.06)]"></div>
               <div class="absolute inset-0 mehndi-motif opacity-10"></div>
-              <div class="absolute inset-6 border border-[rgba(234,215,162,0.55)] rounded-[24px]"></div>
+              <div class="absolute inset-4 sm:inset-6 border border-[rgba(255,224,138,0.55)] rounded-lg"></div>
               <div class="absolute inset-0 flex flex-col justify-end p-8 text-white">
                 <p class="text-xs uppercase tracking-[0.28em] text-[var(--mehndi-gold-soft)] mb-3">Bridal artistry</p>
-                <h2 class="text-4xl font-bold text-white mb-3">Intricate, personal, timeless.</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-3">Intricate, personal, luminous.</h2>
                 <p class="text-sm opacity-85">Mandala centers, floral vines, paisley cuffs, and storytelling motifs crafted for your event.</p>
               </div>
             </div>
@@ -66,7 +66,7 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-center">
           @for (f of features; track f.icon) {
             <div class="premium-card p-6 sm:p-7">
-              <div class="w-14 h-14 brand-gradient rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <div class="w-14 h-14 brand-gradient rounded-lg flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <mat-icon class="text-white" style="font-size:28px;width:28px;height:28px;">{{ f.icon }}</mat-icon>
               </div>
               <h3 class="font-semibold text-xl mb-2">{{ f.title }}</h3>
@@ -81,7 +81,7 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
       <section class="py-14">
         <div class="page-container">
           <div class="text-center mb-10">
-            <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Handpicked talent</p>
+            <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-link)] font-semibold mb-2">Handpicked talent</p>
             <h2 class="text-4xl font-bold mb-3">Our Master Artists</h2>
             <p class="text-[var(--mehndi-muted)]">Each artist brings a unique style, steady hand, and bridal-season expertise.</p>
           </div>
@@ -112,11 +112,11 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
       </section>
     }
 
-    <section class="py-14 bg-[rgba(15,61,46,0.06)]">
+    <section class="py-14 bg-[rgba(225,29,72,0.06)]">
       <div class="page-container">
         <div class="text-center mb-10">
-          <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Transparent packages</p>
-          <h2 class="text-4xl font-bold mb-3">Bridal Mehndi Pricing</h2>
+          <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-link)] font-semibold mb-2">Transparent packages</p>
+          <h2 class="text-4xl font-bold mb-3">Mehak's Mehndi Pricing</h2>
           <p class="text-[var(--mehndi-muted)]">Clear options for intimate ceremonies, full bridal sessions, and festive events.</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -141,7 +141,7 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
       <section class="py-8">
         <div class="page-container">
           <div class="premium-card p-5 flex items-start gap-3">
-            <mat-icon class="text-[var(--mehndi-gold)] mt-0.5">info</mat-icon>
+            <mat-icon class="text-[var(--mehndi-link)] mt-0.5">info</mat-icon>
             <div>
               <h4 class="font-semibold text-[var(--mehndi-deep)]">{{ notice()!.title }}</h4>
               <p class="text-[var(--mehndi-muted)] text-sm mt-1 whitespace-pre-line">{{ notice()!.content }}</p>
@@ -154,9 +154,9 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
     <section class="relative overflow-hidden py-16 text-white text-center brand-gradient">
       <div class="absolute inset-0 mehndi-motif opacity-25"></div>
       <div class="page-container relative">
-        <h2 class="text-4xl font-bold mb-4 text-white">Ready for your mehndi ceremony?</h2>
+        <h2 class="text-4xl font-bold mb-4 text-white">Ready for your mehndi celebration?</h2>
         <p class="text-[rgba(255,250,240,0.86)] mb-8 max-w-lg mx-auto">
-          Reserve your slot early and let the studio prepare a bridal design plan around your celebration.
+          Reserve your slot early and let Mehak's Studio prepare a design plan around your celebration.
         </p>
         <a mat-raised-button routerLink="/booking" class="!bg-[var(--mehndi-ivory)] !text-[var(--mehndi-deep)] !px-10 !py-4 !text-lg">
           Schedule My Appointment

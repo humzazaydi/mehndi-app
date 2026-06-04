@@ -16,7 +16,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
   template: `
     <div class="page-container py-12 sm:py-16">
       <div class="text-center mb-12">
-        <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Occasion-ready pricing</p>
+        <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-link)] font-semibold mb-2">Occasion-ready pricing</p>
         <h1 class="text-4xl sm:text-5xl font-bold mb-4">Packages & Pricing</h1>
         <p class="text-[var(--mehndi-muted)] max-w-2xl mx-auto">
           All packages include four-side hand henna with transparent pricing, refined add-ons, and no hidden charges.
@@ -91,7 +91,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
         @if (disclaimer()) {
           <div class="premium-card p-6 mb-12 max-w-3xl mx-auto">
             <div class="flex items-start gap-3">
-              <mat-icon class="text-[var(--mehndi-gold)] mt-0.5 shrink-0">info_outline</mat-icon>
+              <mat-icon class="text-[var(--mehndi-link)] mt-0.5 shrink-0">info_outline</mat-icon>
               <div>
                 <h3 class="font-semibold text-[var(--mehndi-deep)] mb-2">{{ disclaimer()!.title }}</h3>
                 <p class="text-[var(--mehndi-muted)] text-sm whitespace-pre-line">{{ disclaimer()!.content }}</p>

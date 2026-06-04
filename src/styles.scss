@@ -24,27 +24,31 @@ body.dark-theme {
 }
 
 :root {
-  --mehndi-deep: #0f3d2e;
-  --mehndi-forest: #174d3a;
-  --mehndi-emerald: #1f7a56;
-  --mehndi-leaf: #3ba66f;
-  --mehndi-gold: #c99a2e;
-  --mehndi-gold-soft: #ead7a2;
-  --mehndi-ivory: #fffaf0;
-  --mehndi-cream: #f7efd9;
-  --mehndi-blush: #f2dfc7;
-  --mehndi-ink: #1d261f;
-  --mehndi-muted: #6f766a;
-  --mehndi-heading: #0f3d2e;
-  --mehndi-action-deep: #0f3d2e;
-  --mehndi-panel: rgba(255, 250, 240, 0.94);
-  --mehndi-panel-soft: rgba(255, 250, 240, 0.84);
-  --mehndi-nav: rgba(255, 250, 240, 0.92);
-  --mehndi-page-end: #fffaf2;
-  --mehndi-admin-overlay: linear-gradient(180deg, rgba(255, 250, 240, 0.88), rgba(247, 239, 217, 0.72));
-  --mehndi-border: rgba(15, 61, 46, 0.14);
-  --mehndi-shadow: 0 18px 45px rgba(15, 61, 46, 0.12);
-  --mehndi-shadow-soft: 0 10px 26px rgba(15, 61, 46, 0.09);
+  --mehndi-deep: #5a1238;
+  --mehndi-forest: #8f1d4d;
+  --mehndi-emerald: #009688;
+  --mehndi-leaf: #2dd4bf;
+  --mehndi-gold: #f59e0b;
+  --mehndi-gold-soft: #ffe08a;
+  --mehndi-ivory: #fff7fb;
+  --mehndi-cream: #fff1e6;
+  --mehndi-blush: #ffd6e7;
+  --mehndi-ink: #251724;
+  --mehndi-muted: #776577;
+  --mehndi-heading: #4a1230;
+  --mehndi-action-deep: #e11d48;
+  --mehndi-link: #be123c;
+  --mehndi-success: #047857;
+  --mehndi-danger: #b42318;
+  --mehndi-on-dark: #fff7fb;
+  --mehndi-panel: rgba(255, 255, 255, 0.94);
+  --mehndi-panel-soft: rgba(255, 247, 251, 0.88);
+  --mehndi-nav: rgba(255, 247, 251, 0.9);
+  --mehndi-page-end: #f0fffb;
+  --mehndi-admin-overlay: linear-gradient(180deg, rgba(255, 247, 251, 0.92), rgba(240, 255, 251, 0.82));
+  --mehndi-border: rgba(225, 29, 72, 0.14);
+  --mehndi-shadow: 0 18px 42px rgba(90, 18, 56, 0.14);
+  --mehndi-shadow-soft: 0 10px 24px rgba(90, 18, 56, 0.1);
   --sidebar-width: 260px;
   --header-height: 64px;
   --brand-primary: var(--mehndi-deep);
@@ -55,22 +59,26 @@ body.dark-theme {
 }
 
 body.dark-theme {
-  --mehndi-deep: #ead7a2;
-  --mehndi-forest: #b9963c;
-  --mehndi-emerald: #3ba66f;
-  --mehndi-ivory: #101b15;
-  --mehndi-cream: #17261e;
-  --mehndi-blush: #203228;
-  --mehndi-ink: #f9f2df;
-  --mehndi-muted: #c8bfa9;
-  --mehndi-heading: #ead7a2;
-  --mehndi-action-deep: #0b281f;
-  --mehndi-panel: rgba(20, 34, 27, 0.96);
-  --mehndi-panel-soft: rgba(27, 45, 36, 0.82);
-  --mehndi-nav: rgba(16, 27, 21, 0.94);
-  --mehndi-page-end: #0b1510;
-  --mehndi-admin-overlay: linear-gradient(180deg, rgba(16, 27, 21, 0.92), rgba(23, 38, 30, 0.78));
-  --mehndi-border: rgba(234, 215, 162, 0.18);
+  --mehndi-deep: #ffe08a;
+  --mehndi-forest: #ff6b98;
+  --mehndi-emerald: #2dd4bf;
+  --mehndi-ivory: #17101a;
+  --mehndi-cream: #231327;
+  --mehndi-blush: #37203b;
+  --mehndi-ink: #fff7fb;
+  --mehndi-muted: #d8c5d6;
+  --mehndi-heading: #ffe08a;
+  --mehndi-action-deep: #be123c;
+  --mehndi-link: #ff8db1;
+  --mehndi-success: #5eead4;
+  --mehndi-danger: #fca5a5;
+  --mehndi-on-dark: #fff7fb;
+  --mehndi-panel: rgba(35, 19, 39, 0.96);
+  --mehndi-panel-soft: rgba(55, 32, 59, 0.84);
+  --mehndi-nav: rgba(23, 16, 26, 0.94);
+  --mehndi-page-end: #081f1d;
+  --mehndi-admin-overlay: linear-gradient(180deg, rgba(23, 16, 26, 0.92), rgba(8, 31, 29, 0.78));
+  --mehndi-border: rgba(255, 224, 138, 0.18);
   --mehndi-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
   --mehndi-shadow-soft: 0 10px 26px rgba(0, 0, 0, 0.2);
 }
@@ -90,8 +98,8 @@ body {
   font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 15px;
   background:
-    radial-gradient(circle at 8% 0%, rgba(201, 154, 46, 0.13), transparent 28rem),
-    radial-gradient(circle at 92% 8%, rgba(31, 122, 86, 0.12), transparent 24rem),
+    linear-gradient(120deg, rgba(255, 214, 231, 0.5), transparent 34%),
+    linear-gradient(240deg, rgba(45, 212, 191, 0.18), transparent 36%),
     linear-gradient(180deg, var(--mehndi-ivory) 0%, var(--mehndi-cream) 52%, var(--mehndi-page-end) 100%);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -104,8 +112,8 @@ body::before {
   pointer-events: none;
   opacity: 0.4;
   background-image:
-    radial-gradient(circle at center, rgba(15, 61, 46, 0.11) 0 1px, transparent 1px),
-    radial-gradient(circle at 20px 20px, rgba(201, 154, 46, 0.12) 0 1px, transparent 1px);
+    radial-gradient(circle at center, rgba(225, 29, 72, 0.09) 0 1px, transparent 1px),
+    radial-gradient(circle at 20px 20px, rgba(0, 150, 136, 0.1) 0 1px, transparent 1px);
   background-size: 42px 42px;
   mask-image: linear-gradient(180deg, #000, transparent 75%);
 }
@@ -124,11 +132,26 @@ select {
 h1,
 h2,
 h3,
+h4,
+h5,
+h6,
 .page-title,
 .section-title {
   font-family: 'Playfair Display', Georgia, serif;
   letter-spacing: 0;
   color: var(--mehndi-heading);
+}
+
+p,
+li,
+td,
+th,
+.mat-mdc-card,
+.premium-card,
+.mat-mdc-menu-item,
+.mat-mdc-list-item,
+.mat-mdc-table {
+  color: var(--mehndi-ink);
 }
 
 .page-title {
@@ -160,7 +183,7 @@ h3,
   padding: 1rem;
   background:
     var(--mehndi-admin-overlay),
-    radial-gradient(circle at 100% 0%, rgba(201, 154, 46, 0.16), transparent 22rem);
+    linear-gradient(135deg, rgba(245, 158, 11, 0.13), rgba(45, 212, 191, 0.09));
 
   @media (min-width: 768px) {
     padding: 1.75rem;
@@ -169,7 +192,7 @@ h3,
 
 .brand-gradient,
 .mehndi-gradient {
-  background: linear-gradient(135deg, var(--mehndi-action-deep) 0%, var(--mehndi-emerald) 58%, var(--mehndi-gold) 145%);
+  background: linear-gradient(135deg, var(--mehndi-action-deep) 0%, #ff5d8f 38%, var(--mehndi-emerald) 82%, var(--mehndi-gold) 135%);
 }
 
 .mehndi-surface {
@@ -177,7 +200,7 @@ h3,
   overflow: hidden;
   background: var(--mehndi-panel-soft);
   border: 1px solid var(--mehndi-border);
-  border-radius: 22px;
+  border-radius: 8px;
   box-shadow: var(--mehndi-shadow-soft);
 }
 
@@ -189,8 +212,8 @@ h3,
   pointer-events: none;
   opacity: 0.16;
   background:
-    radial-gradient(circle at 0 0, transparent 0 24px, rgba(201, 154, 46, 0.45) 25px 26px, transparent 27px),
-    radial-gradient(circle at 100% 100%, transparent 0 24px, rgba(15, 61, 46, 0.38) 25px 26px, transparent 27px);
+    radial-gradient(circle at 0 0, transparent 0 24px, rgba(245, 158, 11, 0.38) 25px 26px, transparent 27px),
+    radial-gradient(circle at 100% 100%, transparent 0 24px, rgba(225, 29, 72, 0.28) 25px 26px, transparent 27px);
   background-size: 92px 92px;
 }
 
@@ -215,14 +238,14 @@ h3,
   height: 0.55rem;
   border: 1px solid currentColor;
   border-radius: 999px;
-  box-shadow: 0 0 0 5px rgba(201, 154, 46, 0.12);
+  box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.12);
 }
 
 .premium-card,
 .mat-mdc-card {
   position: relative;
   overflow: hidden;
-  border-radius: 22px !important;
+  border-radius: 8px !important;
   border: 1px solid var(--mehndi-border) !important;
   background: var(--mehndi-panel) !important;
   box-shadow: var(--mehndi-shadow-soft) !important;
@@ -234,7 +257,7 @@ h3,
 
 .premium-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(201, 154, 46, 0.45) !important;
+  border-color: rgba(245, 158, 11, 0.5) !important;
   box-shadow: var(--mehndi-shadow) !important;
 }
 
@@ -245,7 +268,7 @@ h3,
   inset: 0;
   pointer-events: none;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(201, 154, 46, 0.16), transparent 36%);
+  background: linear-gradient(135deg, rgba(255, 93, 143, 0.14), transparent 34%, rgba(45, 212, 191, 0.08));
 }
 
 .mat-mdc-card > *,
@@ -256,31 +279,32 @@ h3,
 
 .mat-mdc-raised-button,
 .mat-mdc-unelevated-button {
-  border-radius: 999px !important;
+  border-radius: 8px !important;
   font-weight: 700 !important;
-  box-shadow: 0 10px 24px rgba(15, 61, 46, 0.18) !important;
+  box-shadow: 0 10px 24px rgba(225, 29, 72, 0.18) !important;
 }
 
 .mat-mdc-raised-button.mat-primary,
 .mat-mdc-unelevated-button.mat-primary,
 .mat-mdc-raised-button.brand-btn {
-  background: linear-gradient(135deg, var(--mehndi-action-deep), var(--mehndi-emerald)) !important;
-  color: var(--mehndi-ivory) !important;
+  background: linear-gradient(135deg, var(--mehndi-action-deep), #ff5d8f 55%, var(--mehndi-emerald)) !important;
+  color: var(--mehndi-on-dark) !important;
 }
 
 .mat-mdc-outlined-button,
 .mat-mdc-button {
-  border-radius: 999px !important;
+  border-radius: 8px !important;
   font-weight: 600 !important;
+  color: var(--mehndi-link) !important;
 }
 
 .mat-mdc-outlined-button {
-  border-color: rgba(201, 154, 46, 0.55) !important;
+  border-color: rgba(225, 29, 72, 0.35) !important;
 }
 
 .mat-mdc-form-field {
-  --mdc-outlined-text-field-container-shape: 18px;
-  --mdc-outlined-text-field-outline-color: rgba(15, 61, 46, 0.18);
+  --mdc-outlined-text-field-container-shape: 8px;
+  --mdc-outlined-text-field-outline-color: rgba(225, 29, 72, 0.18);
   --mdc-outlined-text-field-focus-outline-color: var(--mehndi-emerald);
   --mdc-outlined-text-field-label-text-color: var(--mehndi-muted);
   --mat-form-field-container-text-font: 'Poppins';
@@ -293,9 +317,21 @@ h3,
   box-shadow: var(--mehndi-shadow) !important;
 }
 
+.mat-mdc-menu-item,
+.mat-mdc-list-item {
+  --mat-menu-item-label-text-color: var(--mehndi-ink);
+  --mdc-list-list-item-label-text-color: var(--mehndi-ink);
+  --mdc-list-list-item-supporting-text-color: var(--mehndi-muted);
+  --mdc-list-list-item-leading-icon-color: var(--mehndi-link);
+}
+
+.mat-mdc-icon-button {
+  color: var(--mehndi-link) !important;
+}
+
 .mat-mdc-progress-bar {
   --mdc-linear-progress-active-indicator-color: var(--mehndi-gold);
-  --mdc-linear-progress-track-color: rgba(15, 61, 46, 0.12);
+  --mdc-linear-progress-track-color: rgba(225, 29, 72, 0.12);
 }
 
 .mat-calendar {
@@ -318,26 +354,26 @@ h3,
   text-transform: uppercase;
   letter-spacing: 0.05em;
 
-  &.pending { background: #f8e9bf; color: #76530a; }
-  &.confirmed { background: #d8f2e1; color: #0c5b39; }
-  &.in_progress { background: #dff1ed; color: #0f5c66; }
-  &.completed { background: #efe5bd; color: #6d4c08; }
+  &.pending { background: #fff3c4; color: #7a4a00; }
+  &.confirmed { background: #ccfbf1; color: #115e59; }
+  &.in_progress { background: #dbeafe; color: #1d4ed8; }
+  &.completed { background: #fce7f3; color: #9d174d; }
   &.cancelled,
-  &.rejected { background: #f8d8d4; color: #8d241f; }
-  &.verified { background: #d8f2e1; color: #0c5b39; }
-  &.refunded { background: #ece6d7; color: #534d3f; }
+  &.rejected { background: #fee2e2; color: #991b1b; }
+  &.verified { background: #ccfbf1; color: #115e59; }
+  &.refunded { background: #f3e8ff; color: #6b21a8; }
 }
 
 .luxury-shell {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(201, 154, 46, 0.18), transparent 26rem),
-    radial-gradient(circle at bottom right, rgba(15, 61, 46, 0.16), transparent 28rem),
+    linear-gradient(125deg, rgba(255, 214, 231, 0.48), transparent 42%),
+    linear-gradient(235deg, rgba(45, 212, 191, 0.2), transparent 38%),
     linear-gradient(180deg, var(--mehndi-ivory), var(--mehndi-cream));
 }
 
 .ornate-border {
-  border: 1px solid rgba(201, 154, 46, 0.36);
+  border: 1px solid rgba(245, 158, 11, 0.32);
   box-shadow: inset 0 0 0 1px var(--mehndi-panel-soft), var(--mehndi-shadow-soft);
 }
 
@@ -346,7 +382,7 @@ h3,
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(15, 61, 46, 0.32); border-radius: 999px; }
+::-webkit-scrollbar-thumb { background: rgba(225, 29, 72, 0.28); border-radius: 999px; }
 
 .success-snack { --mdc-snackbar-container-color: #0f5a3f; --mdc-snackbar-supporting-text-color: #fff; }
 .error-snack { --mdc-snackbar-container-color: #8d241f; --mdc-snackbar-supporting-text-color: #fff; }
@@ -383,11 +419,29 @@ h3,
 
 .text-rose-500,
 .text-rose-600,
-.text-rose-700,
+.text-rose-700 {
+  color: var(--mehndi-link) !important;
+}
+
 .text-amber-600,
 .text-amber-800,
 .text-amber-900 {
   color: var(--mehndi-gold) !important;
+}
+
+.text-green-500,
+.text-green-600,
+.text-green-700,
+.text-emerald-500,
+.text-emerald-600,
+.text-emerald-700 {
+  color: var(--mehndi-success) !important;
+}
+
+.text-red-500,
+.text-red-600,
+.text-red-700 {
+  color: var(--mehndi-danger) !important;
 }
 
 .bg-rose-500,

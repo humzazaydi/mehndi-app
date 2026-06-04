@@ -45,7 +45,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
       } @else if (paymentService.payments().length === 0) {
         <app-empty-state icon="payments" title="No payments found" />
       } @else {
-        <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
           <div class="overflow-x-auto">
             <table mat-table [dataSource]="paymentService.payments()">
               <ng-container matColumnDef="booking">

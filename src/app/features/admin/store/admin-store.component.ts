@@ -27,7 +27,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
       } @else if (orderService.orders().length === 0) {
         <app-empty-state icon="shopping_bag" title="No orders yet" />
       } @else {
-        <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
           <div class="overflow-x-auto">
             <table mat-table [dataSource]="orderService.orders()">
               <ng-container matColumnDef="order_number">

@@ -18,7 +18,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
   template: `
     <div class="page-container py-10">
       <div class="mb-8">
-        <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-gold)] font-semibold mb-2">Your studio dashboard</p>
+        <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-link)] font-semibold mb-2">Your studio dashboard</p>
         <h1 class="text-3xl sm:text-4xl font-bold">Welcome, {{ auth.profile()?.full_name ?? 'there' }}</h1>
         <p class="text-[var(--mehndi-muted)] mt-1">Manage bookings, payments, appointments, and henna cone orders.</p>
       </div>
@@ -48,7 +48,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
           <mat-icon class="mr-2">shopping_bag</mat-icon> My Orders
         </a>
         <a mat-stroked-button routerLink="/store">
-          <mat-icon class="mr-2">storefront</mat-icon> Henna Store
+          <mat-icon class="mr-2">storefront</mat-icon> Henna Boutique
         </a>
       </div>
 
@@ -60,7 +60,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
         <div class="premium-card p-10 text-center">
           <mat-icon style="font-size:64px;width:64px;height:64px;opacity:0.2">event_note</mat-icon>
           <h3 class="font-semibold mt-4 mb-2">No bookings yet</h3>
-          <p class="text-[var(--mehndi-muted)] text-sm mb-6">Book your first mehndi session to get started.</p>
+          <p class="text-[var(--mehndi-muted)] text-sm mb-6">Book your first Mehak's Studio session to get started.</p>
           <a mat-raised-button color="primary" routerLink="/booking">Book Now</a>
         </div>
       } @else {
@@ -128,10 +128,10 @@ export class ClientDashboardComponent implements OnInit {
   stats = computed(() => {
     const bookings = this.bookingService.bookings();
     return [
-      { label: 'Total Bookings', value: bookings.length, icon: 'event_note', color: '#0f3d2e' },
-      { label: 'Confirmed', value: bookings.filter(b => b.status === 'confirmed').length, icon: 'check_circle', color: '#1f7a56' },
-      { label: 'Pending', value: bookings.filter(b => b.status === 'pending').length, icon: 'hourglass_empty', color: '#c99a2e' },
-      { label: 'Completed', value: bookings.filter(b => b.status === 'completed').length, icon: 'star', color: '#7c5b18' },
+      { label: 'Total Bookings', value: bookings.length, icon: 'event_note', color: '#e11d48' },
+      { label: 'Confirmed', value: bookings.filter(b => b.status === 'confirmed').length, icon: 'check_circle', color: '#009688' },
+      { label: 'Pending', value: bookings.filter(b => b.status === 'pending').length, icon: 'hourglass_empty', color: '#f59e0b' },
+      { label: 'Completed', value: bookings.filter(b => b.status === 'completed').length, icon: 'star', color: '#8f1d4d' },
     ];
   });
 

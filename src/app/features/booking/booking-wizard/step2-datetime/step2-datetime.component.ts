@@ -28,7 +28,7 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
             [minDate]="minDate"
             [(selected)]="selectedDate"
             (selectedChange)="onDateChange($event)"
-            class="border border-[var(--mehndi-border)] rounded-2xl overflow-hidden"
+            class="border border-[var(--mehndi-border)] rounded-lg overflow-hidden"
           />
         </div>
 
@@ -52,7 +52,7 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
             <div class="grid grid-cols-2 gap-2">
               @for (slot of availableSlots(); track slot) {
                 <button
-                  class="py-3 px-4 rounded-2xl border-2 text-sm font-semibold transition-all"
+                  class="py-3 px-4 rounded-lg border-2 text-sm font-semibold transition-all"
                   [class.border-[var(--mehndi-gold)]]="wizard.data().timeSlot === slot"
                   [class.bg-[var(--mehndi-deep)]]="wizard.data().timeSlot === slot"
                   [class.text-white]="wizard.data().timeSlot === slot"
