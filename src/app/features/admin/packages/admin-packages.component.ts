@@ -40,14 +40,14 @@ import { AssignPackageDialogComponent } from './assign-package-dialog.component'
             <div class="flex items-center gap-4 mb-5">
               <mat-form-field appearance="outline" class="min-w-[200px]" subscriptSizing="dynamic">
                 <mat-label>Select Artist</mat-label>
-                <mat-select [(ngModel)]="selectedArtistId">
+                <mat-select [ngModel]="selectedArtistId()" (ngModelChange)="selectedArtistId.set($event)">
                   @for (a of artistService.artists(); track a.id) {
                     <mat-option [value]="a.id">{{ a.name }}</mat-option>
                   }
                 </mat-select>
               </mat-form-field>
 
-              @if (selectedArtistId) {
+              @if (selectedArtistId()) {
                 <button mat-raised-button color="primary" (click)="openAssignDialog()">
                   <mat-icon class="mr-1">add_link</mat-icon> Assign Package
                 </button>
@@ -55,7 +55,7 @@ import { AssignPackageDialogComponent } from './assign-package-dialog.component'
             </div>
 
             <!-- Packages table for selected artist -->
-            @if (selectedArtistId) {
+            @if (selectedArtistId()) {
               @if (artistPackages().length === 0) {
                 <p class="text-gray-400 text-sm py-4">
                   No packages assigned yet. Click "Assign Package" to add one.
@@ -215,11 +215,12 @@ export class AdminPackagesComponent implements OnInit {
   private snackbar = inject(SnackbarService);
   private dialog = inject(MatDialog);
 
-  selectedArtistId: string | null = null;
+  selectedArtistId = signal<string | null>(null);
 
   artistPackages = computed<ArtistPackage[]>(() => {
-    if (!this.selectedArtistId) return [];
-    const artist = this.artistService.artists().find(a => a.id === this.selectedArtistId);
+    const id = this.selectedArtistId();
+    if (!id) return [];
+    const artist = this.artistService.artists().find(a => a.id === id);
     return artist?.artist_packages ?? [];
   });
 
@@ -236,11 +237,11 @@ export class AdminPackagesComponent implements OnInit {
       this.packageService.loadAddons(false),
     ]);
     const artists = this.artistService.artists();
-    if (artists.length > 0) this.selectedArtistId = artists[0].id;
+    if (artists.length > 0) this.selectedArtistId.set(artists[0].id);
   }
 
   openAssignDialog(): void {
-    const artist = this.artistService.artists().find(a => a.id === this.selectedArtistId);
+    const artist = this.artistService.artists().find(a => a.id === this.selectedArtistId());
     if (!artist) return;
     this.dialog.open(AssignPackageDialogComponent, {
       width: '480px',
@@ -254,7 +255,7 @@ export class AdminPackagesComponent implements OnInit {
   }
 
   openEditPriceDialog(ap: ArtistPackage): void {
-    const artist = this.artistService.artists().find(a => a.id === this.selectedArtistId);
+    const artist = this.artistService.artists().find(a => a.id === this.selectedArtistId());
     if (!artist) return;
     this.dialog.open(AssignPackageDialogComponent, {
       width: '400px',

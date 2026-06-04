@@ -10,6 +10,7 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { ArtistFormDialogComponent } from './artist-form-dialog.component';
+import { ArtistPackagesDialogComponent } from './artist-packages-dialog.component';
 
 @Component({
   selector: 'app-admin-artists',
@@ -50,9 +51,18 @@ import { ArtistFormDialogComponent } from './artist-form-dialog.component';
                 </div>
                 <p class="text-gray-500 text-sm line-clamp-2">{{ artist.bio ?? 'No bio yet' }}</p>
               </mat-card-content>
-              <mat-card-actions class="px-4 pb-4">
-                <button mat-stroked-button (click)="openForm(artist)" class="mr-2">
+              <mat-card-actions class="px-4 pb-4 flex flex-wrap gap-2">
+                <button mat-stroked-button (click)="openForm(artist)">
                   <mat-icon>edit</mat-icon> Edit
+                </button>
+                <button mat-stroked-button color="primary" (click)="openPackages(artist)">
+                  <mat-icon>style</mat-icon>
+                  Packages
+                  @if ((artist.artist_packages?.length ?? 0) > 0) {
+                    <span class="ml-1 text-xs bg-rose-100 text-rose-700 rounded-full px-1.5 py-0.5 font-semibold">
+                      {{ artist.artist_packages?.length }}
+                    </span>
+                  }
                 </button>
                 <button mat-stroked-button color="warn" (click)="delete(artist)">
                   <mat-icon>delete</mat-icon>
@@ -72,6 +82,13 @@ export class AdminArtistsComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.artistService.loadArtists(false);
+  }
+
+  openPackages(artist: Artist): void {
+    this.dialog.open(ArtistPackagesDialogComponent, {
+      width: '660px',
+      data: { artist },
+    });
   }
 
   openForm(artist?: Artist): void {
