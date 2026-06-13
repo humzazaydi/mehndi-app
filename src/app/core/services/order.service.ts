@@ -1,14 +1,23 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { SupabaseService } from './supabase.service';
 import { AuthService } from './auth.service';
+import { NotificationService } from './notification.service';
 import { Order, OrderItem, Product, CartItem, OrderStatus } from '../models';
 
 const CART_STORAGE_KEY = 'mehndi_cart';
+
+const ORDER_STATUS_LABELS: Partial<Record<OrderStatus, string>> = {
+  processing: 'is now being processed',
+  shipped: 'has been shipped and is on its way',
+  delivered: 'has been delivered',
+  cancelled: 'has been cancelled',
+};
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {
   private supabase = inject(SupabaseService);
   private auth = inject(AuthService);
+  private notif = inject(NotificationService);
 
   readonly products = signal<Product[]>([]);
   readonly orders = signal<Order[]>([]);
@@ -100,7 +109,6 @@ export class OrderService {
     const cartItems = this.cart();
     const subtotal = this.getCartTotal();
     const total = subtotal + params.deliveryCharge;
-
     const userId = this.auth.currentUser()?.id ?? null;
 
     const { data, error } = await this.supabase.client
@@ -134,7 +142,30 @@ export class OrderService {
     await this.supabase.client.from('order_items').insert(items);
 
     this.clearCart();
+
+    // Notify staff and optionally the logged-in customer
+    this.sendNewOrderNotifications(order, userId).catch(() => {});
+
     return order;
+  }
+
+  private async sendNewOrderNotifications(order: Order, userId: string | null): Promise<void> {
+    const orderData = { order_id: order.id };
+    const summary = `Order #${order.order_number} for Rs. ${order.total_amount.toLocaleString()} from ${order.customer_name}.`;
+
+    await Promise.all([
+      this.notif.notifyAdmins('New Store Order', summary, 'new_order', orderData),
+      this.notif.notifyByRole('cones_manager', 'New Store Order', `${summary} Ready for processing.`, 'new_order', orderData),
+      ...(userId
+        ? [this.notif.createNotification(
+            userId,
+            'Order Placed Successfully',
+            `Your order #${order.order_number} has been received and is being reviewed.`,
+            'order_status_update',
+            orderData
+          )]
+        : []),
+    ]);
   }
 
   async loadMyOrders(): Promise<void> {
@@ -151,12 +182,34 @@ export class OrderService {
   }
 
   async updateOrderStatus(orderId: string, status: OrderStatus): Promise<void> {
+    const { data: orderData } = await this.supabase.client
+      .from('orders')
+      .select('user_id, order_number, customer_name')
+      .eq('id', orderId)
+      .single();
+
     const { error } = await this.supabase.client
       .from('orders')
       .update({ order_status: status })
       .eq('id', orderId);
     if (error) throw error;
+
     await this.loadAllOrders();
+
+    // Notify logged-in customer about their order status
+    if (orderData) {
+      const o = orderData as { user_id: string | null; order_number: string; customer_name: string };
+      const label = ORDER_STATUS_LABELS[status];
+      if (o.user_id && label) {
+        this.notif.createNotification(
+          o.user_id,
+          'Order Update',
+          `Your order #${o.order_number} ${label}.`,
+          'order_status_update',
+          { order_id: orderId, status }
+        ).catch(() => {});
+      }
+    }
   }
 
   subscribeToOrders(callback: (payload: any) => void) {

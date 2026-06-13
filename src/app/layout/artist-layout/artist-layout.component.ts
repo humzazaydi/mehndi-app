@@ -7,10 +7,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
+import { DatePipe } from '@angular/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { ThemeService } from '../../core/services/theme.service';
+import { Notification, NotificationType } from '../../core/models';
 
 interface NavItem {
   label: string;
@@ -18,13 +22,28 @@ interface NavItem {
   route: string;
 }
 
+const NOTIF_ICONS: Record<NotificationType, string> = {
+  booking_created: 'event_note',
+  booking_confirmed: 'event_available',
+  booking_rejected: 'event_busy',
+  booking_completed: 'task_alt',
+  booking_in_progress: 'pending_actions',
+  booking_cancelled: 'event_busy',
+  payment_submitted: 'receipt_long',
+  payment_verified: 'payments',
+  payment_rejected: 'money_off',
+  order_status_update: 'local_shipping',
+  new_order: 'shopping_bag',
+};
+
 @Component({
   selector: 'app-artist-layout',
   standalone: true,
   imports: [
     RouterOutlet, RouterLink, RouterLinkActive,
     MatSidenavModule, MatToolbarModule, MatNavList, MatListItem, MatListItemIcon, MatListItemTitle,
-    MatIconModule, MatButtonModule, MatBadgeModule, MatMenuModule,
+    MatIconModule, MatButtonModule, MatBadgeModule, MatMenuModule, MatDividerModule,
+    DatePipe,
   ],
   template: `
     <mat-sidenav-container class="h-screen !bg-[var(--mehndi-cream)]">
@@ -72,28 +91,43 @@ interface NavItem {
           </div>
           <span class="flex-1"></span>
 
-          <!-- Notifications -->
           <button mat-icon-button [matMenuTriggerFor]="notifMenu" aria-label="Notifications">
             <mat-icon [matBadge]="notificationService.unreadCount() || null" matBadgeColor="warn">
               notifications
             </mat-icon>
           </button>
-          <mat-menu #notifMenu xPosition="before">
-            <div class="px-4 py-2 font-medium border-b border-[var(--mehndi-border)]">Notifications</div>
-            @for (n of notificationService.notifications().slice(0, 5); track n.id) {
-              <button mat-menu-item [class.opacity-50]="n.is_read" (click)="notificationService.markRead(n.id)">
-                <div class="text-sm">
-                  <p class="font-medium">{{ n.title }}</p>
-                  <p class="opacity-60 text-xs">{{ n.message }}</p>
+          <mat-menu #notifMenu xPosition="before" class="!min-w-80">
+            <div class="flex items-center justify-between px-4 py-2 border-b border-[var(--mehndi-border)]" (click)="$event.stopPropagation()">
+              <span class="font-semibold text-sm">Notifications</span>
+              @if (notificationService.unreadCount() > 0) {
+                <button mat-button class="!text-xs !min-w-0 !px-2" (click)="notificationService.markAllRead()">
+                  Mark all read
+                </button>
+              }
+            </div>
+            @for (n of notificationService.notifications().slice(0, 8); track n.id) {
+              <button mat-menu-item class="!h-auto !py-2" (click)="onNotifClick(n)">
+                <div class="flex items-start gap-3 w-full">
+                  <mat-icon class="!text-[var(--mehndi-link)] shrink-0 mt-0.5 !text-[18px]">{{ notifIcon(n.type) }}</mat-icon>
+                  <div class="flex-1 min-w-0 text-left">
+                    <p class="text-sm font-medium leading-tight" [class.opacity-50]="n.is_read">{{ n.title }}</p>
+                    <p class="text-xs opacity-60 mt-0.5 leading-snug whitespace-normal">{{ n.message }}</p>
+                    <p class="text-xs opacity-40 mt-1">{{ n.created_at | date:'MMM d, h:mm a' }}</p>
+                  </div>
+                  @if (!n.is_read) {
+                    <span class="w-2 h-2 rounded-full bg-[var(--brand-primary)] shrink-0 mt-1.5"></span>
+                  }
                 </div>
               </button>
             }
             @if (notificationService.notifications().length === 0) {
-              <p class="px-4 py-3 text-sm opacity-50">No notifications</p>
+              <div class="px-4 py-6 text-center">
+                <mat-icon class="opacity-30 !text-3xl">notifications_none</mat-icon>
+                <p class="text-sm opacity-50 mt-2">No notifications</p>
+              </div>
             }
           </mat-menu>
 
-          <!-- User Menu -->
           <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="Account">
             <mat-icon>account_circle</mat-icon>
           </button>
@@ -126,6 +160,7 @@ export class ArtistLayoutComponent {
   auth = inject(AuthService);
   notificationService = inject(NotificationService);
   theme = inject(ThemeService);
+  private router = inject(Router);
 
   isMobile = signal(false);
 
@@ -139,5 +174,18 @@ export class ArtistLayoutComponent {
     inject(BreakpointObserver)
       .observe([Breakpoints.Handset])
       .subscribe(result => this.isMobile.set(result.matches));
+  }
+
+  notifIcon(type: NotificationType): string {
+    return NOTIF_ICONS[type] ?? 'notifications';
+  }
+
+  onNotifClick(n: Notification): void {
+    if (!n.is_read) this.notificationService.markRead(n.id);
+    if (n.data?.['booking_id']) {
+      this.router.navigateByUrl(`/artist/bookings/${n.data['booking_id']}`);
+    } else {
+      this.router.navigateByUrl('/artist/bookings');
+    }
   }
 }

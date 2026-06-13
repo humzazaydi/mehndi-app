@@ -1,7 +1,8 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { SupabaseService } from './supabase.service';
 import { AuthService } from './auth.service';
-import { Booking, BookingStatus, BookingWizardData } from '../models';
+import { NotificationService } from './notification.service';
+import { Booking, BookingStatus, BookingWizardData, NotificationType } from '../models';
 
 const BOOKING_SELECT = `
   *,
@@ -12,10 +13,45 @@ const BOOKING_SELECT = `
   booking_status_history(*, profiles(full_name))
 `;
 
+interface BookingStatusNotif {
+  title: string;
+  message: (bookingNumber: string) => string;
+  type: NotificationType;
+}
+
+const STATUS_NOTIF: Partial<Record<BookingStatus, BookingStatusNotif>> = {
+  confirmed: {
+    title: 'Booking Confirmed',
+    message: n => `Your booking #${n} has been confirmed. We look forward to serving you!`,
+    type: 'booking_confirmed',
+  },
+  rejected: {
+    title: 'Booking Rejected',
+    message: n => `Your booking #${n} could not be accepted. Please contact us for details.`,
+    type: 'booking_rejected',
+  },
+  in_progress: {
+    title: 'Service In Progress',
+    message: n => `Your booking #${n} is now in progress. Enjoy your session!`,
+    type: 'booking_in_progress',
+  },
+  completed: {
+    title: 'Service Completed',
+    message: n => `Your booking #${n} is complete. Thank you for choosing Mehak's Studio!`,
+    type: 'booking_completed',
+  },
+  cancelled: {
+    title: 'Booking Cancelled',
+    message: n => `Your booking #${n} has been cancelled.`,
+    type: 'booking_cancelled',
+  },
+};
+
 @Injectable({ providedIn: 'root' })
 export class BookingService {
   private supabase = inject(SupabaseService);
   private auth = inject(AuthService);
+  private notif = inject(NotificationService);
 
   readonly bookings = signal<Booking[]>([]);
   readonly loading = signal(false);
@@ -126,7 +162,6 @@ export class BookingService {
     const created = data as Booking;
 
     if (wizardData.addonIds.length > 0) {
-      // Fetch addon prices
       const { data: addonData } = await this.supabase.client
         .from('addons')
         .select('id, price')
@@ -140,7 +175,34 @@ export class BookingService {
       await this.supabase.client.from('booking_addons').insert(bookingAddons);
     }
 
+    // Fire-and-forget notifications — don't let failures affect the booking
+    this.sendNewBookingNotifications(created, wizardData).catch(() => {});
+
     return created;
+  }
+
+  private async sendNewBookingNotifications(booking: Booking, wizardData: BookingWizardData): Promise<void> {
+    const data = { booking_id: booking.id };
+    const tasks: Promise<void>[] = [
+      this.notif.notifyAdmins(
+        'New Booking Received',
+        `${wizardData.fullName} submitted a new booking for ${wizardData.date} at ${wizardData.timeSlot}.`,
+        'booking_created',
+        data
+      ),
+    ];
+    if (wizardData.artistId) {
+      tasks.push(
+        this.notif.notifyArtist(
+          wizardData.artistId,
+          'New Booking Assigned',
+          `You have a new booking on ${wizardData.date} at ${wizardData.timeSlot}.`,
+          'booking_created',
+          data
+        )
+      );
+    }
+    await Promise.all(tasks);
   }
 
   async updateStatus(bookingId: string, status: BookingStatus, notes?: string): Promise<void> {
@@ -157,6 +219,42 @@ export class BookingService {
       changed_by: userId,
       notes: notes ?? null,
     });
+
+    // Notify client of status change
+    this.sendStatusChangeNotification(bookingId, status).catch(() => {});
+  }
+
+  private async sendStatusChangeNotification(bookingId: string, status: BookingStatus): Promise<void> {
+    const notifTemplate = STATUS_NOTIF[status];
+    if (!notifTemplate) return;
+
+    const { data } = await this.supabase.client
+      .from('bookings')
+      .select('client_id, artist_id, booking_number')
+      .eq('id', bookingId)
+      .single();
+    if (!data) return;
+
+    const b = data as { client_id: string; artist_id: string; booking_number: string };
+
+    await this.notif.createNotification(
+      b.client_id,
+      notifTemplate.title,
+      notifTemplate.message(b.booking_number),
+      notifTemplate.type,
+      { booking_id: bookingId, booking_number: b.booking_number }
+    );
+
+    // Also notify artist when booking is cancelled so they free the slot
+    if (status === 'cancelled') {
+      await this.notif.notifyArtist(
+        b.artist_id,
+        'Booking Cancelled',
+        `A booking on your schedule has been cancelled.`,
+        'booking_cancelled',
+        { booking_id: bookingId }
+      );
+    }
   }
 
   async getAvailableTimeSlots(artistId: string, date: string): Promise<string[]> {

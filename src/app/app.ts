@@ -21,6 +21,7 @@ export class App implements OnInit {
 
     const user = this.auth.currentUser();
     if (user) {
+      await this.notifications.requestBrowserPermission();
       await this.notifications.load();
       this.notifications.subscribeToRealtime(user.id);
     }

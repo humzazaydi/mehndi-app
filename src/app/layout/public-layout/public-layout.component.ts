@@ -5,9 +5,37 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
+import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { ThemeService } from '../../core/services/theme.service';
+import { Notification, NotificationType } from '../../core/models';
+
+const NOTIF_ICONS: Record<NotificationType, string> = {
+  booking_created: 'event_note',
+  booking_confirmed: 'event_available',
+  booking_rejected: 'event_busy',
+  booking_completed: 'task_alt',
+  booking_in_progress: 'pending_actions',
+  booking_cancelled: 'event_busy',
+  payment_submitted: 'receipt_long',
+  payment_verified: 'payments',
+  payment_rejected: 'money_off',
+  order_status_update: 'local_shipping',
+  new_order: 'shopping_bag',
+};
+
+const CLIENT_NOTIF_ROUTE: Partial<Record<NotificationType, (data: Record<string, unknown> | null) => string>> = {
+  booking_confirmed: (d) => d?.['booking_id'] ? `/client/bookings/${d['booking_id']}` : '/client/bookings',
+  booking_rejected: (d) => d?.['booking_id'] ? `/client/bookings/${d['booking_id']}` : '/client/bookings',
+  booking_completed: (d) => d?.['booking_id'] ? `/client/bookings/${d['booking_id']}` : '/client/bookings',
+  booking_in_progress: (d) => d?.['booking_id'] ? `/client/bookings/${d['booking_id']}` : '/client/bookings',
+  booking_cancelled: (d) => d?.['booking_id'] ? `/client/bookings/${d['booking_id']}` : '/client/bookings',
+  payment_verified: (d) => d?.['booking_id'] ? `/client/bookings/${d['booking_id']}` : '/client/bookings',
+  payment_rejected: (d) => d?.['booking_id'] ? `/client/bookings/${d['booking_id']}` : '/client/bookings',
+  order_status_update: () => '/client/orders',
+};
 
 @Component({
   selector: 'app-public-layout',
@@ -15,6 +43,7 @@ import { ThemeService } from '../../core/services/theme.service';
   imports: [
     RouterOutlet, RouterLink, RouterLinkActive,
     MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, MatBadgeModule,
+    DatePipe,
   ],
   template: `
     <mat-toolbar class="sticky top-0 z-50 !h-16 !px-3 sm:!px-6 !bg-[var(--mehndi-nav)] backdrop-blur-xl border-b border-[var(--mehndi-border)] shadow-[0_10px_30px_rgba(90,18,56,0.08)]">
@@ -40,11 +69,46 @@ import { ThemeService } from '../../core/services/theme.service';
 
       <div class="flex items-center gap-2 ml-2">
         @if (auth.isAuthenticated()) {
-          @if (notifications.unreadCount() > 0) {
-            <button mat-icon-button routerLink="/client/dashboard">
-              <mat-icon [matBadge]="notifications.unreadCount()" matBadgeColor="warn">notifications</mat-icon>
-            </button>
-          }
+          <button mat-icon-button [matMenuTriggerFor]="notifMenu" aria-label="Notifications">
+            <mat-icon [matBadge]="notifications.unreadCount() || null" matBadgeColor="warn">notifications</mat-icon>
+          </button>
+          <mat-menu #notifMenu xPosition="before" class="!min-w-80">
+            <div class="flex items-center justify-between px-4 py-2 border-b border-[var(--mehndi-border)]" (click)="$event.stopPropagation()">
+              <span class="font-semibold text-sm">Notifications</span>
+              @if (notifications.unreadCount() > 0) {
+                <button mat-button class="!text-xs !min-w-0 !px-2" (click)="notifications.markAllRead()">
+                  Mark all read
+                </button>
+              }
+            </div>
+            @for (n of notifications.notifications().slice(0, 6); track n.id) {
+              <button mat-menu-item class="!h-auto !py-2" (click)="onNotifClick(n)">
+                <div class="flex items-start gap-3 w-full">
+                  <mat-icon class="!text-[var(--mehndi-link)] shrink-0 mt-0.5 !text-[18px]">{{ notifIcon(n.type) }}</mat-icon>
+                  <div class="flex-1 min-w-0 text-left">
+                    <p class="text-sm font-medium leading-tight" [class.opacity-50]="n.is_read">{{ n.title }}</p>
+                    <p class="text-xs opacity-60 mt-0.5 leading-snug whitespace-normal">{{ n.message }}</p>
+                    <p class="text-xs opacity-40 mt-1">{{ n.created_at | date:'MMM d, h:mm a' }}</p>
+                  </div>
+                  @if (!n.is_read) {
+                    <span class="w-2 h-2 rounded-full bg-[var(--brand-primary)] shrink-0 mt-1.5"></span>
+                  }
+                </div>
+              </button>
+            }
+            @if (notifications.notifications().length === 0) {
+              <div class="px-4 py-6 text-center">
+                <mat-icon class="opacity-30 !text-3xl">notifications_none</mat-icon>
+                <p class="text-sm opacity-50 mt-2">No notifications</p>
+              </div>
+            }
+            <div class="border-t border-[var(--mehndi-border)] px-4 py-2">
+              <a mat-button routerLink="/client/dashboard" class="!text-xs w-full !text-[var(--mehndi-link)]">
+                Go to Dashboard
+              </a>
+            </div>
+          </mat-menu>
+
           <button mat-icon-button [matMenuTriggerFor]="userMenu">
             <mat-icon>account_circle</mat-icon>
           </button>
@@ -124,6 +188,18 @@ export class PublicLayoutComponent {
   auth = inject(AuthService);
   notifications = inject(NotificationService);
   theme = inject(ThemeService);
+  private router = inject(Router);
 
   year = new Date().getFullYear();
+
+  notifIcon(type: NotificationType): string {
+    return NOTIF_ICONS[type] ?? 'notifications';
+  }
+
+  onNotifClick(n: Notification): void {
+    if (!n.is_read) this.notifications.markRead(n.id);
+    const getRoute = CLIENT_NOTIF_ROUTE[n.type];
+    const route = getRoute ? getRoute(n.data) : '/client/dashboard';
+    this.router.navigateByUrl(route);
+  }
 }
