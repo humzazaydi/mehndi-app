@@ -158,4 +158,15 @@ export class OrderService {
     if (error) throw error;
     await this.loadAllOrders();
   }
+
+  subscribeToOrders(callback: (payload: any) => void) {
+    return this.supabase.client
+      .channel('order-updates')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'orders' },
+        (payload) => callback(payload)
+      )
+      .subscribe();
+  }
 }

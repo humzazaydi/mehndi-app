@@ -34,6 +34,34 @@ export class BookingService {
     this.loading.set(false);
   }
 
+  async loadArtistBookings(): Promise<void> {
+    const artistId = this.auth.artist()?.id;
+    if (!artistId) {
+      this.bookings.set([]);
+      return;
+    }
+    this.loading.set(true);
+    const { data } = await this.supabase.client
+      .from('bookings')
+      .select(BOOKING_SELECT)
+      .eq('artist_id', artistId)
+      .order('date', { ascending: true })
+      .order('time_slot', { ascending: true });
+    this.bookings.set((data ?? []) as Booking[]);
+    this.loading.set(false);
+  }
+
+  subscribeToArtistBookings(artistId: string, callback: (payload: any) => void) {
+    return this.supabase.client
+      .channel(`artist-bookings-${artistId}`)
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'bookings', filter: `artist_id=eq.${artistId}` },
+        (payload) => callback(payload)
+      )
+      .subscribe();
+  }
+
   async loadAllBookings(filters?: { status?: BookingStatus; artistId?: string; dateFrom?: string; dateTo?: string }): Promise<void> {
     this.loading.set(true);
     let q = this.supabase.client

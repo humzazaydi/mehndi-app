@@ -97,6 +97,10 @@ export class LoginComponent {
       await this.auth.signIn(this.form.value.email!, this.form.value.password!);
       if (this.auth.isAdmin()) {
         this.router.navigate(['/admin/dashboard']);
+      } else if (this.auth.isArtist()) {
+        this.router.navigate(['/artist/dashboard']);
+      } else if (this.auth.isConesManager()) {
+        this.router.navigate(['/cones-manager/dashboard']);
       } else {
         this.router.navigate(['/client/dashboard']);
       }
