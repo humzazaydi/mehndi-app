@@ -1,6 +1,9 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { BookingWizardData } from '../../../core/models';
 
+const PHONE_RE = /^0[0-9]{9,10}$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const EMPTY: BookingWizardData = {
   artistId: null, packageId: null, addonIds: [], date: null, timeSlot: null,
   fullName: '', phone: '', altPhone: '', email: '', address: '',
@@ -46,7 +49,12 @@ export class BookingWizardService {
       case 0: return !!d.artistId && !!d.packageId;
       case 1: return !!d.date && !!d.timeSlot;
       case 2: return true;
-      case 3: return !!d.fullName && !!d.phone && !!d.email && !!d.address;
+      case 3: return (
+        !!d.fullName &&
+        PHONE_RE.test(d.phone) &&
+        EMAIL_RE.test(d.email) &&
+        !!d.address
+      );
       case 4: return d.termsAccepted;
       default: return false;
     }

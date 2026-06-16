@@ -158,14 +158,32 @@ export class PaymentService {
     );
   }
 
+  private static readonly ALLOWED_RECEIPT_TYPES: Record<string, string> = {
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'image/webp': 'webp',
+    'application/pdf': 'pdf',
+  };
+  private static readonly MAX_RECEIPT_BYTES = 5 * 1024 * 1024; // 5 MB
+
   private async uploadReceipt(bookingId: string, file: File): Promise<string> {
+    const ext = PaymentService.ALLOWED_RECEIPT_TYPES[file.type];
+    if (!ext) {
+      throw new Error('Invalid file type. Allowed formats: JPEG, PNG, WebP, PDF.');
+    }
+    if (file.size > PaymentService.MAX_RECEIPT_BYTES) {
+      throw new Error('File too large. Maximum size is 5 MB.');
+    }
+
     const userId = this.auth.currentUser()?.id;
-    const ext = file.name.split('.').pop();
+    if (!userId) throw new Error('Not authenticated.');
+
+    // Derive extension from MIME type, never from the user-supplied filename.
     const timestamp = Date.now();
     const path = `${userId}/${bookingId}/${timestamp}.${ext}`;
     const { error } = await this.supabase.storage
       .from('payment-receipts')
-      .upload(path, file);
+      .upload(path, file, { contentType: file.type });
     if (error) throw error;
     const { data } = await this.supabase.storage
       .from('payment-receipts')

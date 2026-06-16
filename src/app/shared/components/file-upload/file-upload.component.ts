@@ -27,18 +27,29 @@ import { MatButtonModule } from '@angular/material/button';
           {{ selectedFile()!.name }}
         </div>
       }
+
+      @if (errorMessage()) {
+        <div class="mt-3 p-2 bg-red-50 rounded-lg flex items-center gap-2 text-red-700 text-sm">
+          <mat-icon style="font-size:16px;width:16px;height:16px;">error</mat-icon>
+          {{ errorMessage() }}
+        </div>
+      }
     </div>
     <input #fileInput type="file" [accept]="accept" class="hidden" (change)="onFileSelected($event)">
   `,
 })
 export class FileUploadComponent {
   @Input() label = 'Click or drag to upload';
-  @Input() hint = 'PNG, JPG, PDF up to 5MB';
+  @Input() hint = 'PNG, JPG, PDF up to 5 MB';
   @Input() accept = 'image/*,.pdf';
+  @Input() maxSizeMb = 5;
+  @Input() allowedMimeTypes: string[] = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'application/pdf'];
   @Output() fileSelected = new EventEmitter<File>();
+  @Output() uploadError = new EventEmitter<string>();
 
   isDragging = signal(false);
   selectedFile = signal<File | null>(null);
+  errorMessage = signal<string | null>(null);
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
@@ -49,15 +60,32 @@ export class FileUploadComponent {
     event.preventDefault();
     this.isDragging.set(false);
     const file = event.dataTransfer?.files[0];
-    if (file) this.emitFile(file);
+    if (file) this.validateAndEmit(file);
   }
 
   onFileSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) this.emitFile(file);
+    if (file) this.validateAndEmit(file);
   }
 
-  private emitFile(file: File): void {
+  private validateAndEmit(file: File): void {
+    this.errorMessage.set(null);
+
+    const maxBytes = this.maxSizeMb * 1024 * 1024;
+    if (file.size > maxBytes) {
+      const msg = `File is too large. Maximum size is ${this.maxSizeMb} MB.`;
+      this.errorMessage.set(msg);
+      this.uploadError.emit(msg);
+      return;
+    }
+
+    if (this.allowedMimeTypes.length > 0 && !this.allowedMimeTypes.includes(file.type)) {
+      const msg = `Invalid file type "${file.type}". Allowed: ${this.allowedMimeTypes.join(', ')}.`;
+      this.errorMessage.set(msg);
+      this.uploadError.emit(msg);
+      return;
+    }
+
     this.selectedFile.set(file);
     this.fileSelected.emit(file);
   }

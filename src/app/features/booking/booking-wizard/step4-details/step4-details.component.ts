@@ -27,14 +27,20 @@ import { environment } from '../../../../../environments/environment';
 
           <mat-form-field appearance="outline">
             <mat-label>Phone Number *</mat-label>
-            <input matInput formControlName="phone" placeholder="03XX-XXXXXXX" (blur)="onFormChange()">
+            <input matInput formControlName="phone" placeholder="03XXXXXXXXX" (blur)="onFormChange()">
             <mat-icon matPrefix class="mr-2">phone</mat-icon>
+            @if (form.get('phone')?.hasError('pattern') && form.get('phone')?.touched) {
+              <mat-error>Enter a valid Pakistani mobile number (e.g. 03001234567)</mat-error>
+            }
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>Alternative Phone</mat-label>
-            <input matInput formControlName="altPhone" (blur)="onFormChange()">
+            <input matInput formControlName="altPhone" placeholder="03XXXXXXXXX" (blur)="onFormChange()">
             <mat-icon matPrefix class="mr-2">phone</mat-icon>
+            @if (form.get('altPhone')?.hasError('pattern') && form.get('altPhone')?.touched) {
+              <mat-error>Enter a valid Pakistani mobile number (e.g. 03001234567)</mat-error>
+            }
           </mat-form-field>
 
           <mat-form-field appearance="outline">
@@ -97,12 +103,12 @@ export class Step4DetailsComponent implements OnInit {
   marker: () => google.maps.LatLngLiteral | null = () => null;
 
   form = this.fb.group({
-    fullName: ['', Validators.required],
-    phone: ['', Validators.required],
-    altPhone: [''],
-    email: ['', [Validators.required, Validators.email]],
-    address: ['', Validators.required],
-    notes: [''],
+    fullName: ['', [Validators.required, Validators.maxLength(120)]],
+    phone: ['', [Validators.required, Validators.pattern(/^0[0-9]{9,10}$/)]],
+    altPhone: ['', Validators.pattern(/^0[0-9]{9,10}$/)],
+    email: ['', [Validators.required, Validators.email, Validators.maxLength(254)]],
+    address: ['', [Validators.required, Validators.maxLength(500)]],
+    notes: ['', Validators.maxLength(1000)],
   });
 
   private _marker: google.maps.LatLngLiteral | null = null;

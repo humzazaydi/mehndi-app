@@ -28,7 +28,12 @@ export class OrderService {
   private loadCartFromStorage(): CartItem[] {
     try {
       const raw = localStorage.getItem(CART_STORAGE_KEY);
-      return raw ? (JSON.parse(raw) as CartItem[]) : [];
+      if (!raw) return [];
+      const parsed = JSON.parse(raw) as CartItem[];
+      // Sanitize: drop malformed entries and cap quantities to prevent localStorage tampering.
+      return parsed
+        .filter(item => typeof item?.product?.id === 'string' && typeof item.quantity === 'number')
+        .map(item => ({ ...item, quantity: Math.min(Math.max(Math.floor(item.quantity), 1), 99) }));
     } catch {
       return [];
     }
@@ -107,7 +112,29 @@ export class OrderService {
     deliveryCharge: number;
   }): Promise<Order> {
     const cartItems = this.cart();
-    const subtotal = this.getCartTotal();
+    if (cartItems.length === 0) throw new Error('Cart is empty.');
+
+    // Fetch authoritative prices from the server to prevent client-side price tampering.
+    const productIds = cartItems.map(i => i.product.id);
+    const { data: serverProducts, error: priceError } = await this.supabase.client
+      .from('products')
+      .select('id, price, is_active, name')
+      .in('id', productIds);
+    if (priceError) throw priceError;
+
+    const priceMap = new Map(
+      (serverProducts ?? []).map((p: { id: string; price: number; is_active: boolean; name: string }) => [p.id, p])
+    );
+
+    // Validate every cart item against the server catalogue.
+    const verifiedItems = cartItems.map(item => {
+      const srv = priceMap.get(item.product.id);
+      if (!srv) throw new Error(`Product not found: ${item.product.name}.`);
+      if (!srv.is_active) throw new Error(`"${srv.name}" is no longer available.`);
+      return { ...item, unitPrice: srv.price };
+    });
+
+    const subtotal = verifiedItems.reduce((s, i) => s + i.unitPrice * i.quantity, 0);
     const total = subtotal + params.deliveryCharge;
     const userId = this.auth.currentUser()?.id ?? null;
 
@@ -133,11 +160,11 @@ export class OrderService {
 
     const order = data as Order;
 
-    const items = cartItems.map(i => ({
+    const items = verifiedItems.map(i => ({
       order_id: order.id,
       product_id: i.product.id,
       quantity: i.quantity,
-      unit_price: i.product.price,
+      unit_price: i.unitPrice, // server-verified price
     }));
     await this.supabase.client.from('order_items').insert(items);
 

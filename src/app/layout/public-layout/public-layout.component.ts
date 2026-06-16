@@ -5,12 +5,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { Notification, NotificationType } from '../../core/models';
+import { NotificationsSheetComponent } from '../../shared/notifications-sheet/notifications-sheet.component';
 
 const NOTIF_ICONS: Record<NotificationType, string> = {
   booking_created: 'event_note',
@@ -43,7 +48,7 @@ const CLIENT_NOTIF_ROUTE: Partial<Record<NotificationType, (data: Record<string,
   imports: [
     RouterOutlet, RouterLink, RouterLinkActive,
     MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, MatBadgeModule,
-    DatePipe,
+    MatDialogModule, DatePipe,
   ],
   template: `
     <mat-toolbar class="sticky top-0 z-50 !h-16 !px-3 sm:!px-6 !bg-[var(--mehndi-nav)] backdrop-blur-xl border-b border-[var(--mehndi-border)] shadow-[0_10px_30px_rgba(90,18,56,0.08)]">
@@ -69,9 +74,15 @@ const CLIENT_NOTIF_ROUTE: Partial<Record<NotificationType, (data: Record<string,
 
       <div class="flex items-center gap-2 ml-2">
         @if (auth.isAuthenticated()) {
-          <button mat-icon-button [matMenuTriggerFor]="notifMenu" aria-label="Notifications">
-            <mat-icon [matBadge]="notifications.unreadCount() || null" matBadgeColor="warn">notifications</mat-icon>
-          </button>
+          @if (isMobile()) {
+            <button mat-icon-button (click)="openNotifSheet()" aria-label="Notifications">
+              <mat-icon [matBadge]="notifications.unreadCount() || null" matBadgeColor="warn">notifications</mat-icon>
+            </button>
+          } @else {
+            <button mat-icon-button [matMenuTriggerFor]="notifMenu" aria-label="Notifications">
+              <mat-icon [matBadge]="notifications.unreadCount() || null" matBadgeColor="warn">notifications</mat-icon>
+            </button>
+          }
           <mat-menu #notifMenu xPosition="before" class="!min-w-80">
             <div class="flex items-center justify-between px-4 py-2 border-b border-[var(--mehndi-border)]" (click)="$event.stopPropagation()">
               <span class="font-semibold text-sm">Notifications</span>
@@ -189,8 +200,25 @@ export class PublicLayoutComponent {
   notifications = inject(NotificationService);
   theme = inject(ThemeService);
   private router = inject(Router);
+  private dialog = inject(MatDialog);
+  private breakpoints = inject(BreakpointObserver);
+
+  isMobile = toSignal(
+    this.breakpoints.observe('(max-width: 767px)').pipe(map(r => r.matches)),
+    { initialValue: false }
+  );
 
   year = new Date().getFullYear();
+
+  openNotifSheet(): void {
+    this.dialog.open(NotificationsSheetComponent, {
+      width: '100vw',
+      maxWidth: '100vw',
+      height: '100dvh',
+      panelClass: 'notif-fullscreen-dialog',
+      position: { top: '0', left: '0' },
+    });
+  }
 
   notifIcon(type: NotificationType): string {
     return NOTIF_ICONS[type] ?? 'notifications';

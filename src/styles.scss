@@ -465,6 +465,15 @@ th,
   box-shadow: var(--mehndi-shadow-soft) !important;
 }
 
+.notif-fullscreen-dialog {
+  .mat-mdc-dialog-container,
+  .mdc-dialog__surface {
+    border-radius: 0 !important;
+    padding: 0 !important;
+    max-height: 100dvh !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
