@@ -12,7 +12,8 @@
       "Bash(npm run *)",
       "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\Zaydi\\\\Documents\\\\Github\\\\mehndi-app\\\\src\\\\app\\\\features\\\\admin\\\\packages\" -File)",
       "Bash(grep -E \"\\\\.\\(ts|js\\)$\")",
-      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\Zaydi\\\\Documents\\\\Github\\\\mehndi-app\\\\src\\\\app\\\\features\\\\admin\\\\packages\" -File | ForEach-Object { $_.FullName })"
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\Zaydi\\\\Documents\\\\Github\\\\mehndi-app\\\\src\\\\app\\\\features\\\\admin\\\\packages\" -File | ForEach-Object { $_.FullName })",
+      "Bash(npm install *)"
     ]
   }
 }
