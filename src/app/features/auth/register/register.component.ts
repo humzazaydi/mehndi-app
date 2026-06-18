@@ -27,7 +27,7 @@ import { AuthService } from '../../../core/services/auth.service';
           <h1 class="text-3xl font-bold">
             Create Account
           </h1>
-          <p class="text-[var(--mehndi-muted)] text-sm mt-1">Join Mehak's Studio to reserve and manage your session.</p>
+          <p class="text-[var(--mehndi-muted)] text-sm mt-1">Join Henna Studio to reserve and manage your session.</p>
         </div>
 
         <div class="premium-card p-6 sm:p-8">

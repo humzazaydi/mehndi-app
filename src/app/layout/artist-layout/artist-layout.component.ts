@@ -59,7 +59,7 @@ const NOTIF_ICONS: Record<NotificationType, string> = {
               <span class="text-white font-bold text-lg" style="font-family:'Playfair Display',serif">M</span>
             </div>
             <div>
-              <p class="font-semibold text-sm leading-none" style="font-family:'Playfair Display',serif;color:var(--mehndi-heading)">Mehak's Studio</p>
+              <p class="font-semibold text-sm leading-none" style="font-family:'Playfair Display',serif;color:var(--mehndi-heading)">Henna Studio</p>
               <p class="text-xs opacity-60 mt-1">Artist Portal</p>
             </div>
           </div>

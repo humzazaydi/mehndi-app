@@ -1,4 +1,4 @@
-# Mehak's Studio — Project Documentation
+# Henna Studio — Project Documentation
 
 Bridal henna booking platform built with Angular 21, Angular Material, Tailwind CSS v4, and Supabase.
 
@@ -23,7 +23,7 @@ Bridal henna booking platform built with Angular 21, Angular Material, Tailwind 
 
 ## Overview
 
-Mehak's Studio is a full-stack PWA for booking bridal mehndi (henna) services. It has two primary user roles:
+Henna Studio is a full-stack PWA for booking bridal mehndi (henna) services. It has two primary user roles:
 
 - **Client** — Browse artists and packages, book appointments, track booking status, and purchase henna cones from the store.
 - **Admin** — Manage all bookings, artists, packages, payments, orders, and view analytics dashboards.

@@ -16,8 +16,8 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
   template: `
     <div class="page-container py-12">
       <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold mb-4" style="font-family:'Playfair Display',serif">Mehak's Henna Boutique</h1>
-        <p class="text-gray-500 max-w-xl mx-auto">Premium henna cones curated by Mehak's Studio and delivered to your door.</p>
+        <h1 class="text-4xl font-bold mb-4" style="font-family:'Playfair Display',serif">Henna Henna Boutique</h1>
+        <p class="text-gray-500 max-w-xl mx-auto">Premium henna cones curated by Henna Studio and delivered to your door.</p>
       </div>
 
       @if (loading()) {

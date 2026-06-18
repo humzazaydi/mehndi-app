@@ -133,7 +133,7 @@ import { Profile, UserRole } from '../../../core/models';
         <!-- User Roles -->
         <mat-tab label="User Roles">
           <div class="py-6 max-w-4xl">
-            <p class="text-gray-500 text-sm mb-4">Manage permissions and delegate staff roles for Mehak's Studio accounts.</p>
+            <p class="text-gray-500 text-sm mb-4">Manage permissions and delegate staff roles for Henna Studio accounts.</p>
             
             <div class="flex items-center gap-3 mb-6 bg-white rounded-lg p-4 shadow-sm">
               <mat-form-field appearance="outline" class="flex-1 !mb-0">

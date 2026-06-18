@@ -29,7 +29,7 @@ const STEP_LABELS = ['Artist & Package', 'Date & Time', 'Add-ons', 'Your Details
         <div class="text-center mb-8">
           <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-link)] font-semibold mb-2">Bridal booking</p>
           <h1 class="text-4xl sm:text-5xl font-bold">
-            Reserve Your Mehak's Session
+            Reserve Your Henna Session
           </h1>
           <p class="text-[var(--mehndi-muted)] mt-3">Choose your artist, ceremony date, bespoke details, and advance payment.</p>
         </div>

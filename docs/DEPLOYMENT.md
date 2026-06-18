@@ -1,4 +1,4 @@
-# Mehak's Studio - Deployment Guide
+# Henna Studio - Deployment Guide
 
 ## Prerequisites
 - Node.js 18+

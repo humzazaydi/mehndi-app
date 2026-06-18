@@ -1,5 +1,5 @@
 -- ============================================================
--- Mehak's Studio - Database Migration: Artist & Cones Manager
+-- Henna Studio - Database Migration: Artist & Cones Manager
 -- Run in Supabase Dashboard → SQL Editor
 -- ============================================================
 

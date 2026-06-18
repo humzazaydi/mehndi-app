@@ -29,7 +29,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <app-loading-spinner />
       } @else if (orderService.myOrders().length === 0) {
         <app-empty-state icon="shopping_bag" title="No orders yet"
-          subtitle="Visit Mehak's Henna Boutique to place your first order!" />
+          subtitle="Visit Henna Henna Boutique to place your first order!" />
       } @else {
         <div class="space-y-4">
           @for (order of orderService.myOrders(); track order.id) {

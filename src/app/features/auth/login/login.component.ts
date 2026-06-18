@@ -28,7 +28,7 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
           <h1 class="text-3xl font-bold">
             Welcome Back
           </h1>
-          <p class="text-[var(--mehndi-muted)] text-sm mt-1">Sign in to manage your Mehak's Studio bookings.</p>
+          <p class="text-[var(--mehndi-muted)] text-sm mt-1">Sign in to manage your Henna Studio bookings.</p>
         </div>
 
         <div class="premium-card p-6 sm:p-8">

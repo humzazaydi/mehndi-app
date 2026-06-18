@@ -60,7 +60,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
         <div class="premium-card p-10 text-center">
           <mat-icon style="font-size:64px;width:64px;height:64px;opacity:0.2">event_note</mat-icon>
           <h3 class="font-semibold mt-4 mb-2">No bookings yet</h3>
-          <p class="text-[var(--mehndi-muted)] text-sm mb-6">Book your first Mehak's Studio session to get started.</p>
+          <p class="text-[var(--mehndi-muted)] text-sm mb-6">Book your first Henna Studio session to get started.</p>
           <a mat-raised-button color="primary" routerLink="/booking">Book Now</a>
         </div>
       } @else {

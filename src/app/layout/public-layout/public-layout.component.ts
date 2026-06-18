@@ -58,7 +58,7 @@ const CLIENT_NOTIF_ROUTE: Partial<Record<NotificationType, (data: Record<string,
             <span class="text-white font-bold text-lg" style="font-family:'Playfair Display',serif">M</span>
           </div>
           <span class="font-semibold text-lg truncate" style="font-family:'Playfair Display',serif;color:var(--mehndi-heading)">
-            Mehak's Studio
+            Henna Studio
           </span>
         </a>
       </div>
@@ -171,7 +171,7 @@ const CLIENT_NOTIF_ROUTE: Partial<Record<NotificationType, (data: Record<string,
       <div class="absolute inset-0 opacity-15 mehndi-motif"></div>
       <div class="page-container relative grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
-          <h3 class="text-[var(--mehndi-gold-soft)] font-semibold mb-3" style="font-family:'Playfair Display',serif">Mehak's Studio</h3>
+          <h3 class="text-[var(--mehndi-gold-soft)] font-semibold mb-3" style="font-family:'Playfair Display',serif">Henna Studio</h3>
           <p class="text-sm leading-relaxed opacity-85">Vibrant bridal henna services in Karachi with refined booking, transparent packages, and artist-led care.</p>
         </div>
         <div>
@@ -190,7 +190,7 @@ const CLIENT_NOTIF_ROUTE: Partial<Record<NotificationType, (data: Record<string,
         </div>
       </div>
       <div class="relative border-t border-[rgba(234,215,162,0.18)] mt-8 pt-6 text-center text-xs opacity-65">
-        Copyright {{ year }} Mehak's Studio. All rights reserved.
+        Copyright {{ year }} Henna Studio. All rights reserved.
       </div>
     </footer>
   `,

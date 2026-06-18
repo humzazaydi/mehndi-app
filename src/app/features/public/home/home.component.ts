@@ -22,7 +22,7 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
         <div class="py-12 sm:py-18">
           <p class="text-[var(--mehndi-gold-soft)] text-xs font-semibold uppercase tracking-[0.28em] mb-4">Vibrant bridal henna</p>
           <h1 class="text-[clamp(3rem,14vw,6.4rem)] font-extrabold leading-[0.92] mb-6 text-white">
-            Mehak's Studio
+            Henna Studio
           </h1>
           <p class="text-lg sm:text-xl text-[rgba(255,250,240,0.88)] leading-relaxed max-w-xl mb-8">
             Artist-led mehndi bookings with authentic South Asian detailing, vivid celebration color, natural henna, and a polished flow from consultation to event day.
@@ -116,7 +116,7 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
       <div class="page-container">
         <div class="text-center mb-10">
           <p class="text-xs uppercase tracking-[0.25em] text-[var(--mehndi-link)] font-semibold mb-2">Transparent packages</p>
-          <h2 class="text-4xl font-bold mb-3">Mehak's Mehndi Pricing</h2>
+          <h2 class="text-4xl font-bold mb-3">Henna Mehndi Pricing</h2>
           <p class="text-[var(--mehndi-muted)]">Clear options for intimate ceremonies, full bridal sessions, and festive events.</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -156,7 +156,7 @@ import { CurrencyPkPipe } from '../../../shared/pipes/currency-pk.pipe';
       <div class="page-container relative">
         <h2 class="text-4xl font-bold mb-4 text-white">Ready for your mehndi celebration?</h2>
         <p class="text-[rgba(255,250,240,0.86)] mb-8 max-w-lg mx-auto">
-          Reserve your slot early and let Mehak's Studio prepare a design plan around your celebration.
+          Reserve your slot early and let Henna Studio prepare a design plan around your celebration.
         </p>
         <a mat-raised-button routerLink="/booking" class="!bg-[var(--mehndi-ivory)] !text-[var(--mehndi-deep)] !px-10 !py-4 !text-lg">
           Schedule My Appointment

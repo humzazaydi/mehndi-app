@@ -37,7 +37,7 @@ const STATUS_NOTIF: Partial<Record<BookingStatus, BookingStatusNotif>> = {
   },
   completed: {
     title: 'Service Completed',
-    message: n => `Your booking #${n} is complete. Thank you for choosing Mehak's Studio!`,
+    message: n => `Your booking #${n} is complete. Thank you for choosing Henna Studio!`,
     type: 'booking_completed',
   },
   cancelled: {
